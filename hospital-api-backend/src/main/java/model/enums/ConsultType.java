@@ -1,0 +1,6 @@
+package model.enums;
+
+public enum ConsultType {
+PRESENTIAL,
+ONLINE
+}

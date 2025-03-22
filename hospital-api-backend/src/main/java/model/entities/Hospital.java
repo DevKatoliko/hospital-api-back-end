@@ -1,0 +1,100 @@
+package model.entities;
+
+import java.math.BigDecimal;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.Size;
+
+@Entity
+@Table(name="Hospitals")
+public class Hospital {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	@NotBlank(message = "O nome do hospital não pode ser em branco")
+	@Size(min =2, max = 32, message = "O nome do hospital deve conter entre 2 a 32 caracteres")
+	private String name;
+	@OneToOne
+	@JoinColumn(name= "address_id", referencedColumnName = "id", nullable = false)
+	private Address address;
+	@Pattern(regexp = "\\(\\d{2}\\d{4,5}-\\d{4})", message="Telefone inválido")
+	private String telephone;
+	@Positive
+	@Digits(integer = 10, fraction = 2)
+	private BigDecimal consultationPrice;
+	@Positive
+	@Digits(integer = 10, fraction = 2)
+	private BigDecimal hospitalizationPrice;
+	@PositiveOrZero
+	@Digits(integer = 12, fraction = 2)
+	private BigDecimal hospitalTotalCash;
+	
+	protected Hospital() {}
+	
+	public Hospital(String name,Address address,String telephone,BigDecimal consultationPrice, BigDecimal hospitalizationPrice,	BigDecimal hospitalTotalCash) {
+		this.name = name;
+		this.address = address;
+		this.telephone = telephone;
+		if(consultationPrice.compareTo(BigDecimal.ZERO)<= 0 || hospitalizationPrice.compareTo(BigDecimal.ZERO) <= 0 ) {
+			throw new IllegalArgumentException("Os valores dos serviços não devem ser menores e nem iguais a zero");
+		}
+		this.consultationPrice = consultationPrice;
+		this.hospitalizationPrice = hospitalizationPrice;
+		this.hospitalTotalCash = hospitalTotalCash;
+	}
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public Address getAddress() {
+		return address;
+	}
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+	public String getTelephone() {
+		return telephone;
+	}
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
+	}
+	public BigDecimal getConsultationPrice() {
+		return consultationPrice;
+	}
+	public void setConsultationPrice(BigDecimal consultationPrice) {
+		this.consultationPrice = consultationPrice;
+	}
+	public BigDecimal getHospitalizationPrice() {
+		return hospitalizationPrice;
+	}
+	public void setHospitalizationPrice(BigDecimal hospitalizationPrice) {
+		this.hospitalizationPrice = hospitalizationPrice;
+	}
+	public BigDecimal getHospitalTotalCash() {
+		return hospitalTotalCash;
+	}
+	public void setHospitalTotalCash(BigDecimal hospitalTotalCash) {
+		this.hospitalTotalCash = hospitalTotalCash;
+	}
+	
+	
+}

@@ -1,0 +1,22 @@
+package model.entities;
+
+import java.util.List;
+
+public class MedicalHistory {
+	private Long id;
+	private double weight;
+	private double height;
+	private BloodType bloodType;// Enum com os tipos sanguíneos
+	private boolean smoker;
+	private boolean drinkAlcohol;
+	private boolean practicesPhysicalExercise;
+	private boolean usesMedicine;
+	private List<String> medicinesUsedInformation;
+	private String familyHealthHisotry; //  Information about the patient's family health history
+	private String patientHealthHistory; // Information about the health condition of the patient
+	private String surgeryInformation;
+	private List<String> chronicDiseasesInformation;
+	private List<String> patientSymptoms;
+	private List<String> diagnostics;
+	private List<String> internations;
+}

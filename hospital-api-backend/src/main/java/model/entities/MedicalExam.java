@@ -1,0 +1,117 @@
+package model.entities;
+
+import java.time.LocalDate;
+import java.util.List;
+
+import jakarta.persistence.CollectionTable;
+import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+@Entity
+@Table(name= "medical_exams")
+public class MedicalExam {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	@Column(name = "physical_exam")
+	private String physicalExam;
+	@ElementCollection
+	@CollectionTable(name = "complementary_exams", joinColumns = @JoinColumn(name = "medical_exam_id"))
+	private List<String> complementaryExams;
+	@OneToOne(mappedBy = "medicalExam")
+	private MedicalRecord medicalRecord;
+	@Column(name = "exams_date")
+	private LocalDate examsDate;
+	private String methods; // The methods used to get the result for the exams
+	@ElementCollection
+	@CollectionTable(name="exam_measures_results", joinColumns = @JoinColumn(name = "medical_exam_id"))
+	private List<String> examMeasuresResult; // Details of any measure taken in the exams (example: pressure, blood glucose level)
+	@Column(name= "doctor_observations")
+	private String doctorObservations; // Comments from the doctor about the exams
+	
+	protected MedicalExam() {}
+	
+	public MedicalExam(String physicalExam, List<String> complementaryExams, MedicalRecord medicalRecord,
+			LocalDate examsDate, String methods, List<String> examMeasuresResult, String doctorObservations) {
+		this.physicalExam = physicalExam;
+		this.complementaryExams = complementaryExams;
+		this.medicalRecord = medicalRecord;
+		this.examsDate = examsDate;
+		this.methods = methods;
+		this.examMeasuresResult = examMeasuresResult;
+		this.doctorObservations = doctorObservations;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getPhysicalExam() {
+		return physicalExam;
+	}
+
+	public void setPhysicalExam(String physicalExam) {
+		this.physicalExam = physicalExam;
+	}
+
+	public List<String> getComplementaryExams() {
+		return complementaryExams;
+	}
+
+	public void setComplementaryExams(List<String> complementaryExams) {
+		this.complementaryExams = complementaryExams;
+	}
+
+	public MedicalRecord getMedicalRecord() {
+		return medicalRecord;
+	}
+
+	public void setMedicalRecord(MedicalRecord medicalRecord) {
+		this.medicalRecord = medicalRecord;
+	}
+
+	public LocalDate getExamsDate() {
+		return examsDate;
+	}
+
+	public void setExamsDate(LocalDate examsDate) {
+		this.examsDate = examsDate;
+	}
+
+	public String getMethods() {
+		return methods;
+	}
+
+	public void setMethods(String methods) {
+		this.methods = methods;
+	}
+
+	public List<String> getExamMeasuresResult() {
+		return examMeasuresResult;
+	}
+
+	public void setExamMeasuresResult(List<String> examMeasuresResult) {
+		this.examMeasuresResult = examMeasuresResult;
+	}
+
+	public String getDoctorObservations() {
+		return doctorObservations;
+	}
+
+	public void setDoctorObservations(String doctorObservations) {
+		this.doctorObservations = doctorObservations;
+	}
+	
+	
+	
+}

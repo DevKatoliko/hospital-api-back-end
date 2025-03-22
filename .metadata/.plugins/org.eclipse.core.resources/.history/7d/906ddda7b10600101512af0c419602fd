@@ -1,0 +1,79 @@
+package model.entities;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.List;
+
+import model.enums.Gender;
+import model.enums.Specialty;
+
+public class Doctor extends Employee{
+	private List<Patient> patients;
+	private List<Schedule> schedules;
+	private String professionalRegistration;//CRM, NPI, GMC, etc...
+	private Specialty speciallty;
+	
+	protected Doctor() {}
+	
+	public Doctor(
+			List<Patient> patients,
+			List<Schedule> schedules, 
+			Specialty speciallty,
+			String name,
+			String lastName,
+			Gender gender,
+			String cpf,
+			LocalDate birthDate,
+			String telephoneNumber,
+			String cellphoneNumber,
+			String email,	
+			Address address, 
+			Hospital hospital,
+			BigDecimal salary,
+			PaySheet paySheet,
+			String professionalRegistration) {
+		super(cellphoneNumber, 
+				cellphoneNumber,
+				gender, 
+				cellphoneNumber, 
+				birthDate, 
+				cellphoneNumber, 
+				cellphoneNumber, 
+				cellphoneNumber, 
+				address, 
+				hospital,salary,paySheet);
+		this.patients = patients;
+		this.schedules = schedules;
+		this.professionalRegistration = professionalRegistration;
+		this.speciallty = speciallty;
+	}
+	
+	public List<Patient> getPatients() {
+		return patients;
+	}
+	public void setPatients(List<Patient> patients) {
+		this.patients = patients;
+	}
+	public List<Schedule> getSchedules() {
+		return schedules;
+	}
+	public void setSchedules(List<Schedule> schedules) {
+		this.schedules = schedules;
+	}
+	public Specialty getSpeciallty() {
+		return speciallty;
+	}
+	public void setSpeciallty(Specialty speciallty) {
+		this.speciallty = speciallty;
+	}
+
+	public String getProfessionalRegistration() {
+		return professionalRegistration;
+	}
+
+	public void setProfessionalRegistration(String professionalRegistration) {
+		this.professionalRegistration = professionalRegistration;
+	}
+	
+	
+}

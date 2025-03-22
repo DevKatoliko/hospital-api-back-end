@@ -1,0 +1,7 @@
+INDEX VERSION 1.4+/home/rubens/eclipse-workspace/.metadata/.plugins/org.eclipse.wst.jsdt.core/indexes
+3540452019.index
+699279012.index
+1376971886.index
+4202258860.index
+2791819509.index
+2232814451.index
