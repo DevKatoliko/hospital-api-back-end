@@ -1,0 +1,22 @@
+package model.entities;
+
+import java.util.List;
+
+public class Patient extends Person{
+	private List<Doctor> doctors;
+	private List<MedicalReport> medicalReports;
+	
+	public List<Doctor> getDoctors() {
+		return doctors;
+	}
+	public void setDoctors(List<Doctor> doctors) {
+		this.doctors = doctors;
+	}
+	public List<MedicalReport> getMedicalReports() {
+		return medicalReports;
+	}
+	public void setMedicalReports(List<MedicalReport> medicalReports) {
+		this.medicalReports = medicalReports;
+	}
+	
+}

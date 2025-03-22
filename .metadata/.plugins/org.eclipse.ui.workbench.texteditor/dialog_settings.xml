@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<item key="hasShownOverlayPopupBefore" value="true"/>
+	<section name="java.lang.Class">
+		<item key="replaceBarOpen" value="true"/>
+		<list key="findhistory">
+			<item value="Simptoms"/>
+			<item value="simptoms"/>
+			<item value="MedicalHisotry"/>
+			<item value="medicalHisotry"/>
+			<item value="ssn"/>
+		</list>
+		<list key="replacehistory">
+			<item value="Symptoms"/>
+			<item value="symptoms"/>
+			<item value="medicalHistory"/>
+		</list>
+	</section>
+</section>

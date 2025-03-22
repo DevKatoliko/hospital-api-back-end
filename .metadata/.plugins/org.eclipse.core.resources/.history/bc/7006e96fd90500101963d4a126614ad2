@@ -1,0 +1,51 @@
+package model.entities;
+
+import java.time.LocalDate;
+
+public class Schedule {
+	private Long id;
+	private LocalDate date;
+	private ConsultType consultType;
+	private String address;
+	private Patient patient;
+	private Doctor doctor;
+	public Schedule(LocalDate date, ConsultType consultTipe, String address, Patient patient, Doctor doctor) {
+		this.date = date;
+		this.consultType = consultTipe;
+		this.address = address;
+		this.patient = patient;
+		this.doctor = doctor;
+	}
+	public LocalDate getDate() {
+		return date;
+	}
+	public void setDate(LocalDate date) {
+		this.date = date;
+	}
+	public ConsultType getConsultTipe() {
+		return consultType;
+	}
+	public void setConsultTipe(ConsultType consultType) {
+		this.consultType = consultType;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public Patient getPatient() {
+		return patient;
+	}
+	public void setPatient(Patient patient) {
+		this.patient = patient;
+	}
+	public Doctor getDoctor() {
+		return doctor;
+	}
+	public void setDoctor(Doctor doctor) {
+		this.doctor = doctor;
+	}
+	
+	
+}

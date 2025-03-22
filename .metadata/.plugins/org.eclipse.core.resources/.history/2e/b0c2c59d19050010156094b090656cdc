@@ -1,0 +1,21 @@
+package model.entities;
+
+import java.math.BigDecimal;
+
+public abstract class Employee extends Person{
+	private BigDecimal salary;
+	private PaySheet paysheet;
+	public BigDecimal getSalary() {
+		return salary;
+	}
+	public void setSalary(BigDecimal salary) {
+		this.salary = salary;
+	}
+	public PaySheet getPaysheet() {
+		return paysheet;
+	}
+	public void setPaysheet(PaySheet paysheet) {
+		this.paysheet = paysheet;
+	}
+	
+}

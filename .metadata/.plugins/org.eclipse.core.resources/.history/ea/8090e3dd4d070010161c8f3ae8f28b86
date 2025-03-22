@@ -1,0 +1,14 @@
+package model.entities;
+
+import java.util.List;
+
+public class MedicalRecord {
+	private Long id;
+	private Doctor doctor;
+	private Patient patient;
+	private List<String> simptoms;
+	private MedicalExam medicalExam;
+	private MedicalHistory medicalHisotry;
+	
+	
+}

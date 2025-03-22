@@ -1,0 +1,6 @@
+1742339493873	Rename package 'model.entities'
+1742340165961	Delete element
+1742428827682	Encapsulate field 'status, ...'
+1742511739917	Encapsulate field 'professionalRegistration, ...'
+1742511906526	Encapsulate field 'additionalInformation, ...'
+1742673930140	Encapsulate field 'teleconsultationLink, ...'
