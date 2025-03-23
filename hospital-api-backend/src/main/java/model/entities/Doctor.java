@@ -14,6 +14,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
 import model.enums.Gender;
 import model.enums.Specialty;
+import model.enums.WorkShiftType;
 @Entity
 @Table(name= "doctors")
 public class Doctor extends Employee{
@@ -23,46 +24,28 @@ public class Doctor extends Employee{
 	@ElementCollection
 	@CollectionTable(name="doctors_schedules", joinColumns = @JoinColumn(name="doctor_id"))
 	private List<Schedule> schedules;
-	@Column(name= "professional_registration")
+	@Column(name= "professional_registration", nullable = false, unique = true)
 	private String professionalRegistration;//CRM, NPI, GMC, etc...
 	@Enumerated(value=EnumType.STRING)
 	private Specialty specialty;
 	
+	
 	protected Doctor() {}
 	
-	public Doctor(
-			List<Patient> patients,
-			List<Schedule> schedules, 
-			Specialty speciallty,
-			String name,
-			String lastName,
-			Gender gender,
-			String cpf,
-			LocalDate birthDate,
-			String telephoneNumber,
-			String cellphoneNumber,
-			String email,	
-			Address address, 
-			Hospital hospital,
-			BigDecimal salary,
-			PaySheet paySheet,
-			String professionalRegistration) {
-		super(cellphoneNumber, 
-				cellphoneNumber,
-				gender, 
-				cellphoneNumber, 
-				birthDate, 
-				cellphoneNumber, 
-				cellphoneNumber, 
-				cellphoneNumber, 
-				address, 
-				hospital,salary,paySheet);
+	
+	
+	public Doctor(List<Patient> patients, List<Schedule> schedules, String professionalRegistration,Specialty specialty,
+			BigDecimal salary, PaySheet paySheet, WorkShiftType workShift,Department department,String name,String lastName,Gender gender,String cpf,
+			LocalDate birthDate,String telephoneNumber,String cellphoneNumber,String email,Address address, Hospital hospital) {
+		super(salary,paySheet,workShift,department,name,lastName,gender,cpf,birthDate,telephoneNumber,cellphoneNumber,email,address,hospital);
 		this.patients = patients;
 		this.schedules = schedules;
 		this.professionalRegistration = professionalRegistration;
-		this.specialty = speciallty;
+		this.specialty = specialty;
 	}
-	
+
+
+
 	public List<Patient> getPatients() {
 		return patients;
 	}

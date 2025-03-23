@@ -4,6 +4,7 @@
 	<section name="java.lang.Class">
 		<item key="replaceBarOpen" value="true"/>
 		<list key="findhistory">
+			<item value="paysheet"/>
 			<item value="Simptoms"/>
 			<item value="simptoms"/>
 			<item value="MedicalHisotry"/>
@@ -11,6 +12,7 @@
 			<item value="ssn"/>
 		</list>
 		<list key="replacehistory">
+			<item value="PaySheet"/>
 			<item value="Symptoms"/>
 			<item value="symptoms"/>
 			<item value="medicalHistory"/>
