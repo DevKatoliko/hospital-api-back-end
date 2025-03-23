@@ -3060,3 +3060,237 @@ Command-line arguments:  -os linux -ws gtk -arch x86_64 -product org.eclipse.epp
 
 !ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 20:39:40.697
 !MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 21:03:15.258
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 21:03:15.261
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 21:03:49.455
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 21:03:49.458
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 21:16:46.383
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 21:16:46.388
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 21:22:59.862
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 21:22:59.866
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 21:23:39.912
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 21:23:39.915
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 21:24:04.350
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 21:24:04.355
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 21:26:36.216
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 21:26:36.220
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 21:27:18.476
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 21:27:18.480
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 21:27:22.938
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 21:27:22.941
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 21:27:53.556
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 21:27:53.560
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 21:27:59.400
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 21:27:59.405
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 21:28:45.325
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 21:28:45.328
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 21:29:05.331
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 21:29:05.334
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 21:29:40.404
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 21:29:40.408
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 21:31:11.791
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 21:31:11.795
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 21:35:41.492
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 21:35:41.497
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 21:37:12.881
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 21:37:12.885
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 21:42:48.205
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 21:42:48.209
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 21:52:31.744
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 21:52:31.748
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 21:53:12.453
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 21:53:12.457
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 21:53:20.800
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 21:53:20.804
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 21:54:18.064
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 21:54:18.067
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 21:56:07.577
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 21:56:07.580
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 21:57:24.417
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 21:57:24.423
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 21:58:05.430
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 21:58:05.432
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 21:58:27.945
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 21:58:27.949
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 21:59:07.567
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 21:59:07.571
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 22:00:10.770
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 22:00:10.773
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 22:00:50.678
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 22:00:50.682
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 22:03:18.580
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 22:03:18.586
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 22:03:44.490
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 22:03:44.495
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 22:04:06.642
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 22:04:06.645
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 22:04:24.018
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 22:04:24.022
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 22:05:43.259
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 22:05:43.262
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 22:07:12.382
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 22:07:12.385
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 22:07:39.283
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 22:07:39.286
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 22:07:59.989
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 22:07:59.992
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 22:08:07.499
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 22:08:07.503
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 22:27:39.388
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-03-22 22:27:39.391
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
