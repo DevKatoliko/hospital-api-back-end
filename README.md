@@ -1,8 +1,11 @@
 # hospital-api-back-end
-Esse é um projeto de uma API Web para gerenciamento hospitalar
-- Java 17
+Esse é um projeto de uma API Web para gerenciamento hospitalar.
+Estou fazendo uso das tecnologias, frameworks e padrões de projeto:
+- Java 21
+- DTO (Data Transfer Object)
+- DAO (Data Access Object)
+- MVC (Model View Controller)
 - Spring Boot
-- MVC
 - Spring Security
 - Firebase Authentication
 - JPA / Hibernate
