@@ -1,0 +1,85 @@
+package model.entities;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import model.enums.Gender;
+import model.enums.Specialty;
+import model.enums.WorkShiftType;
+@Entity
+@Table(name= "doctors")
+public class Doctor extends Employee{
+	@ManyToMany
+	@JoinTable(name="doctors_and_patients", 
+	joinColumns = @JoinColumn(name = "doctor_id"), inverseJoinColumns = @JoinColumn(name= "patient_id"))
+	private Set<Patient> patients = new HashSet<>();
+	@OneToMany(mappedBy = "doctor")
+	private Set<Schedule> schedules = new HashSet<>();
+	@Column(name= "professional_registration", nullable = false, unique = true)
+	private String professionalRegistration;//CRM, NPI, GMC, etc...
+	@Enumerated(value=EnumType.STRING)
+	private Specialty specialty;
+	
+	
+	
+	protected Doctor() {
+		super();
+	}
+	
+	
+	
+	public Doctor(Set<Patient> patients, Set<Schedule> schedules, String professionalRegistration,Specialty specialty,
+			BigDecimal salary, PaySheet paySheet, WorkShiftType workShift,Department department,String name,String lastName,Gender gender,String cpf,
+			LocalDate birthDate,String telephoneNumber,String cellphoneNumber,String email,Address address, Hospital hospital) {
+		super(salary,paySheet,workShift,department,name,lastName,gender,cpf,birthDate,telephoneNumber,cellphoneNumber,email,address,hospital);
+		this.patients = patients;
+		this.schedules = schedules;
+		this.professionalRegistration = professionalRegistration;
+		this.specialty = specialty;
+	}
+
+
+
+	public Set<Patient> getPatients() {
+		return Collections.unmodifiableSet(patients);
+	}
+	public void setPatients(Set<Patient> patients) {
+		this.patients = (patients != null) ? patients: new HashSet<>();
+	}
+	public Set<Schedule> getSchedules() {
+		return Collections.unmodifiableSet(schedules);
+	}
+	public void setSchedules(Set<Schedule> schedules) {
+		this.schedules = (schedules != null) ? schedules: new HashSet<>() ;
+	}
+	
+	
+	public Specialty getSpecialty() {
+		return specialty;
+	}
+	public void setSpecialty(Specialty specialty) {
+		this.specialty = specialty;
+	}
+
+	public String getProfessionalRegistration() {
+		return professionalRegistration;
+	}
+
+	public void setProfessionalRegistration(String professionalRegistration) {
+		this.professionalRegistration = professionalRegistration;
+	}
+	
+	
+}

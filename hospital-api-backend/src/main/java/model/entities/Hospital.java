@@ -1,99 +1,146 @@
 package model.entities;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Digits;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.PositiveOrZero;
-import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name="Hospitals")
-public class Hospital {
+@Table(name="hospitals")
+public class Hospital implements Serializable{
+	private static final long serialVersionUID = 1L;
+	public static final String NULL_ERROR_NAME = "O nome do hospital não pode ser nulo!";
+	public static final String NULL_ERROR_ADDRESS= "O endereço do hospital não pode ser nulo!";
+	public static final String NULL_ERROR_TELEPHONE= "O telefone do hospital não pode ser nulo!";
+	public static final String NULL_ERROR_CONSULTATION_PRICE= "O valor da consulta não pode ser nulo!";
+	public static final String NULL_ERROR_HOSPITALIZATION_PRICE= "O valor da internação não pode ser nulo!";
+	public static final String NULL_ERROR_HOSPITAL_CASH= "O valor em caixa do hospital não pode ser nulo!";
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@NotBlank(message = "O nome do hospital não pode ser em branco")
-	@Size(min =2, max = 32, message = "O nome do hospital deve conter entre 2 a 32 caracteres")
+	@Column(nullable = false)
 	private String name;
 	@OneToOne
 	@JoinColumn(name= "address_id", referencedColumnName = "id", nullable = false)
 	private Address address;
-	@Pattern(regexp = "\\(\\d{2}\\d{4,5}-\\d{4})", message="Telefone inválido")
+	@Column(length = 15, nullable =false)
 	private String telephone;
-	@Positive
-	@Digits(integer = 10, fraction = 2)
-	private BigDecimal consultationPrice;
-	@Positive
-	@Digits(integer = 10, fraction = 2)
-	private BigDecimal hospitalizationPrice;
-	@PositiveOrZero
-	@Digits(integer = 12, fraction = 2)
-	private BigDecimal hospitalTotalCash;
+	@Column(nullable = false)
+	@OneToMany(mappedBy = "hospital")
+	private Set<Department> departments = new HashSet<>();
+	private BigDecimal consultationPrice = BigDecimal.ZERO;
+	@Column(nullable = false)
+	private BigDecimal hospitalizationPrice = BigDecimal.ZERO;
+	@Column(nullable = false)
+	private BigDecimal hospitalCash = BigDecimal.ZERO;
 	
 	protected Hospital() {}
 	
-	public Hospital(String name,Address address,String telephone,BigDecimal consultationPrice, BigDecimal hospitalizationPrice,	BigDecimal hospitalTotalCash) {
-		this.name = name;
-		this.address = address;
-		this.telephone = telephone;
-		if(consultationPrice.compareTo(BigDecimal.ZERO)<= 0 || hospitalizationPrice.compareTo(BigDecimal.ZERO) <= 0 ) {
-			throw new IllegalArgumentException("Os valores dos serviços não devem ser menores e nem iguais a zero");
-		}
-		this.consultationPrice = consultationPrice;
-		this.hospitalizationPrice = hospitalizationPrice;
-		this.hospitalTotalCash = hospitalTotalCash;
+	public Hospital(String name,Address address,String telephone,BigDecimal consultationPrice, BigDecimal hospitalizationPrice,	BigDecimal hospitalCash) {
+		this.name = Objects.requireNonNull(name, NULL_ERROR_NAME);
+		this.address = Objects.requireNonNull(address, NULL_ERROR_ADDRESS);
+		this.telephone = Objects.requireNonNull(telephone, NULL_ERROR_TELEPHONE);
+		this.consultationPrice = Objects.requireNonNull(consultationPrice, NULL_ERROR_CONSULTATION_PRICE);
+		this.hospitalizationPrice = Objects.requireNonNull(hospitalizationPrice, NULL_ERROR_HOSPITALIZATION_PRICE);
+		this.hospitalCash = Objects.requireNonNull(hospitalCash, NULL_ERROR_HOSPITAL_CASH);
 	}
 	public Long getId() {
 		return id;
 	}
-	public void setId(Long id) {
-		this.id = id;
-	}
+	
 	public String getName() {
 		return name;
 	}
+	
 	public void setName(String name) {
-		this.name = name;
+		this.name = Objects.requireNonNull(name, NULL_ERROR_NAME);
 	}
+	
 	public Address getAddress() {
 		return address;
 	}
+	
 	public void setAddress(Address address) {
-		this.address = address;
+		this.address =Objects.requireNonNull(address, NULL_ERROR_ADDRESS);
 	}
+	
 	public String getTelephone() {
 		return telephone;
 	}
+	
 	public void setTelephone(String telephone) {
-		this.telephone = telephone;
+		this.telephone = Objects.requireNonNull(telephone, NULL_ERROR_TELEPHONE);
 	}
+	
+	
+	public Set<Department> getDepartments() {
+		return Collections.unmodifiableSet(departments);
+	}
+
+	public void addDepartments(Set<Department> departments) {
+		if(departments == null || departments.isEmpty()) {
+			throw new IllegalArgumentException("Os departamentos não podem ser nulos ou vazios!");
+		}
+		this.departments.addAll(departments);
+	}
+	
+	public void addDepartment(Department department) {
+		Objects.requireNonNull(department, "O departamento não pode ser nulo!");
+		this.departments.add(department);
+	}
+	
 	public BigDecimal getConsultationPrice() {
 		return consultationPrice;
 	}
+	
 	public void setConsultationPrice(BigDecimal consultationPrice) {
-		this.consultationPrice = consultationPrice;
+		this.consultationPrice = Objects.requireNonNull(consultationPrice, NULL_ERROR_CONSULTATION_PRICE);
 	}
+	
 	public BigDecimal getHospitalizationPrice() {
 		return hospitalizationPrice;
 	}
+	
 	public void setHospitalizationPrice(BigDecimal hospitalizationPrice) {
-		this.hospitalizationPrice = hospitalizationPrice;
+		this.hospitalizationPrice = Objects.requireNonNull(hospitalizationPrice, NULL_ERROR_HOSPITALIZATION_PRICE);
 	}
-	public BigDecimal getHospitalTotalCash() {
-		return hospitalTotalCash;
+	
+	public BigDecimal getHospitalCash() {
+		return hospitalCash;
 	}
-	public void setHospitalTotalCash(BigDecimal hospitalTotalCash) {
-		this.hospitalTotalCash = hospitalTotalCash;
+	
+	public void addHospitalCash(BigDecimal hospitalCash) {
+		this.hospitalCash.add(Objects.requireNonNull(hospitalCash, NULL_ERROR_HOSPITAL_CASH));
+	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Hospital other = (Hospital) obj;
+		return Objects.equals(id, other.id);
 	}
 	
 	

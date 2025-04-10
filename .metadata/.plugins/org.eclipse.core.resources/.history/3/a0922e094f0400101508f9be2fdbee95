@@ -1,5 +1,0 @@
-package model.entities;
-
-public abstract class Person {
-
-}

@@ -1,0 +1,17 @@
+package dtos.creations;
+
+import java.time.LocalDate;
+
+import jakarta.validation.constraints.NotNull;
+import model.enums.HospitalServiceType;
+import model.enums.ScheduleType;
+
+public record ScheduleCreationDTO(
+		@NotNull(message = "É necessário definir uma data para o agendamento!")
+		LocalDate date,
+		@NotNull(message = "É necessário informar o tipo de agendamento!")
+		ScheduleType scheduleType,
+		@NotNull(message = "É necessário informar qual o tipo de atendimento médico desejado!")
+		HospitalServiceType hospitalServiceType) {
+
+}

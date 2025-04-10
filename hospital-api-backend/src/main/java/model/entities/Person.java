@@ -1,9 +1,10 @@
 package model.entities;
 
+import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Objects;
 
-import org.hibernate.validator.constraints.br.CPF;
-
+import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -16,103 +17,110 @@ import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Past;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
 import model.enums.Gender;
 import model.enums.NationalityType;
 @Inheritance(strategy = InheritanceType.JOINED)
 @Entity
-@Table(name= "Persons")
-public abstract class Person {
+@Table(name= "persons")
+public abstract class Person implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@NotBlank(message = "O nome não pode estar em branco")
-	@Size(min=2, max=32, message="O nome deve ter entre 2 a 32 caracteres")
+	
+	@Column(nullable = false)
 	private String name;
-	@NotBlank(message = "O sobrenome não pode estar em branco")
-	@Size(min=2, max=32, message="O sobrenome deve ter entre 2 a 32 caracteres")
+	
+	@Column(name = "last_name",nullable = false)
 	private String lastName;
+	
 	@Enumerated(value= EnumType.STRING)
+	@Column(nullable = false)
 	private NationalityType nationality;
+	
 	@NotNull(message= "O gênero é obrigatório")
 	@Enumerated(value= EnumType.STRING)
+	@Column(nullable = false)
 	private Gender gender;
-	@CPF(message="Cpf inválido")
+	
+	@Column(nullable = false)
 	private String cpf;
-	@NotBlank(message="Data de nascimento não pode estar em branco!")
-	@Past(message = "A data de nascimento deve ser no passado!")
+	
+	@Column(name = "birth_date",nullable = false)
 	private LocalDate birthDate;
-	@Pattern(regexp = "\\(\\d{2}\\d{4,5}-\\d{4})", message="Telefone inválido")
+	
+	@Column(name = "telephone_number")
 	private String telephoneNumber;
-	@NotBlank(message= "O número de celular é obrigatório")
-	@Pattern(regexp = "\\(\\d{2}\\d{4,5}-\\d{4})", message="Telefone inválido")
+	
+	@Column(name = "cellphone_number", nullable = false)
 	private String cellphoneNumber;
-	@NotBlank(message = "O E-mail é obrigatório")
-	@Email(message = "Email inválido!")
+	
+	@Column(nullable = false)
 	private String email;
+	
 	@Embedded
+	@Column(nullable = false)
 	private Address address;
+	
 	@OneToOne
 	@JoinColumn(name = "hospital_id", referencedColumnName = "id", nullable = false)
 	private Hospital hospital;
 	
 	protected Person() {}
+	
 	public Person(
 			String name,String lastName,Gender gender,String cpf,LocalDate birthDate,String telephoneNumber,
-			String cellphoneNumber,String email,	Address address, Hospital hospital) {
-		this.name = name;
-		this.lastName = lastName;
-		this.gender = gender;
-		this.cpf = cpf;
-		this.birthDate = birthDate;
+			String cellphoneNumber,String email,Address address, NationalityType nationality,Hospital hospital) {
+		this.name = Objects.requireNonNull(name, "O nome não pode ser nulo!");
+		this.lastName = Objects.requireNonNull(lastName, "O sobrenome não pode ser nulo!");
+		this.gender = Objects.requireNonNull(gender, "O sexo não pode ser nulo!");
+		this.cpf = Objects.requireNonNull(cpf, "O CPF não pode ser nulo");
+		this.birthDate = Objects.requireNonNull(birthDate, "A data de nascimento não pode ser nula!");
 		this.telephoneNumber = telephoneNumber;
-		this.cellphoneNumber = cellphoneNumber;
-		this.email = email;
-		this.address = address;
-		this.hospital = hospital;
+		this.cellphoneNumber = Objects.requireNonNull(cellphoneNumber, "O celular não pode ser nulo!");
+		this.email = Objects.requireNonNull(email, "O email não pode ser nulo!");
+		this.address = Objects.requireNonNull(address, "O endereço não pode ser nulo!");
+		this.nationality = Objects.requireNonNull(nationality);
+		this.hospital = Objects.requireNonNull(hospital, "O hospital não pode ser nulo!");
+	
 	}
 	
 
 	public Long getId() {
 		return id;
 	}
-	public void setId(Long id) {
-		this.id = id;
-	}
+
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
-		this.name = name;
+		this.name = Objects.requireNonNull(name, "O nome não pode ser nulo!");
 	}
 	public String getLastName() {
 		return lastName;
 	}
 	public void setLastName(String lastName) {
-		this.lastName = lastName;
+		this.lastName = Objects.requireNonNull(lastName, "O sobrenome não pode ser nulo!");
 	}
 	public Gender getGender() {
 		return gender;
 	}
 	public void setGender(Gender gender) {
-		this.gender = gender;
+		this.gender = Objects.requireNonNull(gender, "O sexo não pode ser nulo!");
 	}
 	public String getCpf() {
 		return cpf;
 	}
-	public void setSsn(String ssn) {
-		this.cpf = ssn;
+	public void setCpf(String cpf) {
+		this.cpf = Objects.requireNonNull(cpf, "O CPF não pode ser nulo");
 	}
 	public LocalDate getBirthDate() {
 		return birthDate;
 	}
 	public void setBirthDate(LocalDate birthDate) {
-		this.birthDate = birthDate;
+		this.birthDate = Objects.requireNonNull(birthDate, "A data de nascimento não pode ser nula!");
 	}
 	public String getTelephoneNumber() {
 		return telephoneNumber;
@@ -124,25 +132,58 @@ public abstract class Person {
 		return cellphoneNumber;
 	}
 	public void setCellphoneNumber(String cellphoneNumber) {
-		this.cellphoneNumber = cellphoneNumber;
+		this.cellphoneNumber = Objects.requireNonNull(cellphoneNumber, "O celular não pode ser nulo!");
 	}
 	public String getEmail() {
 		return email;
 	}
 	public void setEmail(String email) {
-		this.email = email;
+		this.email = Objects.requireNonNull(email, "O email não pode ser nulo!");
 	}
 	public Address getAddress() {
 		return address;
 	}
 	public void setAddress(Address address) {
-		this.address = address;
+		this.address = Objects.requireNonNull(address, "O endereço não pode ser nulo!");
 	}
 	public Hospital getHospitalId() {
 		return hospital;
 	}
 	public void setHospitalId(Hospital hospital) {
-		this.hospital = hospital;
+		this.hospital = Objects.requireNonNull(hospital, "O hospital não pode ser nulo!");
 	}
+	
+	public NationalityType getNationality() {
+		return nationality;
+	}
+
+	public void setNationality(NationalityType nationality) {
+		this.nationality = Objects.requireNonNull(nationality, "A nacionalidade não pode ser nula!");;
+	}
+
+	public Hospital getHospital() {
+		return hospital;
+	}
+
+	public void setHospital(Hospital hospital) {
+		this.hospital = Objects.requireNonNull(hospital, "O hospital não pode ser nulo!");
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Person other = (Person) obj;
+		return Objects.equals(id, other.id);
+	}
+	
 	
 }

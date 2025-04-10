@@ -1,0 +1,31 @@
+1743548877868	Rename type 'AdministratorCreationDTO'
+1743613399245	Move compilation units
+1743633427290	Rename type 'MedicationUserValidation'
+1743693736181	Rename package 'dtos.responses.selections'
+1743694710123	Delete element
+1743695968341	Delete element
+1743717786444	Delete element
+1743717897000	Delete element
+1743717948517	Delete element
+1743723822972	Rename type 'SchedulePatientSelectionDTO'
+1743724099901	Rename type 'DoctorsScheduleSelection'
+1743724457588	Rename type 'ScheduleSelectionDTO'
+1743726183145	Rename type 'ScheduleTypeValidation'
+1743726626472	Rename type 'DoctorsPatientExam'
+1743874815013	Rename type 'DoctorsPatientExamCreationDTO'
+1743874879309	Rename type 'DoctorsFinalExamDTO'
+1743874900279	Rename type 'MedicalRecordFinalDTO'
+1743875011483	Rename type 'MedicalRecordResponseDTO'
+1743875072984	Rename compilation unit 'MedicalRecordInitalResponseDTO.java'
+1743876483423	Rename type 'PhysicalExamValidator'
+1743876515116	Rename type 'PhysicalExamValidation'
+1743876692697	Rename type 'MedicalRecordDataDTO'
+1743876705542	Rename type 'MedicalRecordDataFinalDTO'
+1743878197395	Rename type 'MedicalRecordBasicResponseDTO'
+1743879083532	Rename type 'MedicalExamResponseDTO'
+1743879491940	Rename type 'MedicalExamDTO'
+1743879512333	Copy compilation unit
+1743879675109	Rename type 'MedicalExamBasicDTO'
+1743879693439	Delete element
+1743883368200	Rename type 'MedicalRecordDTO'
+1743884839832	Rename type 'MedicalExamDTO'

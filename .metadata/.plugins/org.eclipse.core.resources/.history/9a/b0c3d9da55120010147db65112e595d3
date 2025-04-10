@@ -1,0 +1,14 @@
+package dtos.responses;
+
+import model.entities.Doctor;
+
+public record DoctorResponseDTO(String name, String lastName, String professionalRegistration) {
+	public static DoctorResponseDTO essentialInformationDoctor(Doctor doctor) {
+		return new DoctorResponseDTO(doctor.getName(), doctor.getLastName(), doctor.getProfessionalRegistration());
+	}
+	
+	public static DoctorResponseDTO doctorsName(Doctor doctor) {
+		return new DoctorResponseDTO(doctor.getName(), doctor.getLastName(), null);
+	}
+		
+}

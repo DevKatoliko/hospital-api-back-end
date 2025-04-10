@@ -1,0 +1,13 @@
+package dtos.creations;
+
+import java.time.LocalDate;
+import java.util.Set;
+
+public record DoctorsPatientExam(
+		Set<String> symptoms, 
+		String physicalExam,
+		String hypotheticalDiagnostic, 
+		LocalDate examDate,
+		Long doctorsPatientId) {
+
+}

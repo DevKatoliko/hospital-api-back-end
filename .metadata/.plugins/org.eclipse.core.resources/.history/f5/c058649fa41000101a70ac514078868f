@@ -1,0 +1,5 @@
+package dtos.responses.selection;
+
+public record DoctorsPatientSelectionDTO(Long patientId, String name, String lastName) {
+	public static DoctorsPatientSelectionDTO fromDoctor(Doctor doctor) {}
+}

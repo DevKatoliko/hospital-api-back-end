@@ -1,0 +1,16 @@
+package dtos.creations;
+
+import java.util.Set;
+
+import dtos.responses.selection.PatientSelectionDTO;
+import model.entities.Doctor;
+
+public record MedicalRecordCreationDTO(
+		Set<Doctor> doctors, 
+		PatientSelectionDTO patient, 
+		Set<String> symptoms,
+		
+		MedicalHistoryResponseDTO medicalHistory, 
+		String hypotheticalDiagnostic ) {
+
+}

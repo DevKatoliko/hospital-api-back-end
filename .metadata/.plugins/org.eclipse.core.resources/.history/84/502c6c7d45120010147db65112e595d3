@@ -1,0 +1,5 @@
+package dtos.responses;
+
+public record MedicalRecordResponseDTO() {
+
+}

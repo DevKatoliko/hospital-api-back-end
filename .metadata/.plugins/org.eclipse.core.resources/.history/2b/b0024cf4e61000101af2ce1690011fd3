@@ -1,0 +1,10 @@
+package dtos.responses.selection;
+
+import model.entities.Doctor;
+import model.entities.Schedule;
+
+public record ScheduleSelectionDTO(Long scheduleId, String patientName, String patientLastName) {
+	public static ScheduleSelectionDTO fromSchedule(Schedule schedule) {
+		return new ScheduleSelectionDTO(p.getId(), p.getName(), p.getLastName());
+	}
+}

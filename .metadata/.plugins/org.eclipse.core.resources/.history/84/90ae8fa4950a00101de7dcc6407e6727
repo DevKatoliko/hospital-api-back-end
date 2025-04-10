@@ -1,0 +1,235 @@
+package model.entities;
+
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
+
+import jakarta.persistence.CollectionTable;
+import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.AssertFalse;
+import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.NotNull;
+import model.enums.BloodType;
+@Entity
+@Table(name= "medical_history_records")
+public class MedicalHistory {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	@Column(nullable =false)
+	@NotNull(message = "O peso não pode ser nulo!")
+	@Digits(integer = 3, fraction = 2, message = "Peso inválido!")
+	private double weight;
+	@Column(nullable =false)
+	@NotNull(message = "A altura não pode ser nula!")
+	@Digits(integer = 1 ,  fraction = 2 ,  message = "Altura inválida!")
+	private double height;
+	@Enumerated(value=EnumType.STRING)
+	@Column(nullable =false)
+	@NotNull(message = "É necessário informar o tipo sanguíneo!")
+	private BloodType bloodType;
+	@Column(nullable =false)
+	@AssertFalse
+	private boolean smoker;
+	@Column(name="drink_alcohol", nullable =false)
+	@AssertFalse
+	private boolean alcoholConsumer;
+	@Column(name="practice_physical_exercise", nullable =false)
+	@AssertFalse
+	private boolean physicalExerciser;
+	@Column(name="uses_medicine" , nullable = false)
+	@AssertFalse
+	private boolean medicationUser;
+	@ElementCollection
+	@CollectionTable(name="patients_medicines_information", joinColumns = @JoinColumn(name = "medical_history_id"))
+	@Column(name="medicines") // The patient maybe don't use any medicine
+	private Set<String> medicinesUsedInformation = new HashSet<>();
+	@Column(name="family_health_history", nullable  = false)
+	@NotNull(message = "O histórico de saúde familiar não pode ser nulo!")
+	private String familyHealthHistory; //  Information about the patient's family health history
+	@Column(name="patient_health_history", nullable = false)
+	@NotNull(message = "O histórico de saúde do paciente não pode ser nulo!")
+	private String patientHealthHistory; // Information about the health condition of the patient
+	@ElementCollection
+	@CollectionTable(name = "surgeries_history", joinColumns = @JoinColumn(name= "medical_history_id"))
+	@Column(name="surgeries")
+	private Set<String> surgeriesHistory = new HashSet<>(); // The patient may never have been in a surgery
+	@ElementCollection
+	@CollectionTable(name="patients_chronic_diseases_information", joinColumns = @JoinColumn(name = "medical_history_id"))
+	@Column(name="chronic_diseases")
+	private Set<String> chronicDiseasesInformation = new HashSet<>();
+	@ElementCollection
+	@CollectionTable(name="patients_symptoms", joinColumns = @JoinColumn(name = "medical_history_id"))
+	@Column(name="symptoms")
+	private Set<String> patientSymptoms = new HashSet<>();
+	@ElementCollection
+	@CollectionTable(name="patients_diagnostics", joinColumns = @JoinColumn(name = "medical_history_id"))
+	@Column(name="diagnostics")
+	private Set<String> diagnostics = new HashSet<>();
+	@ElementCollection
+	@CollectionTable(name="patients_hospitalizations", joinColumns = @JoinColumn(name = "medical_history_id"))
+	@Column(name="hospitalizations")
+	private Set<String> hospitalizations = new HashSet<>();
+	@OneToOne
+	@JoinColumn(name="patient", referencedColumnName = "id", nullable = false)
+	private Patient patient;
+	
+	protected MedicalHistory() {}
+	
+	
+	public MedicalHistory(double weight, double height, BloodType bloodType, boolean smoker, boolean alcoholConsumer,
+			boolean physicalExerciser, boolean medicationUser, Set<String> medicinesUsedInformation,
+			String familyHealthHistory, String patientHealthHistory, Set<String> surgeriesHistory,
+			Set<String> chronicDiseasesInformation, Set<String> patientSymptoms, Set<String> diagnostics,
+			Set<String> hospitalizations, Patient patient) {
+		this.weight = weight;
+		this.height = height;
+		this.bloodType = bloodType;
+		this.smoker = smoker;
+		this.alcoholConsumer = alcoholConsumer;
+		this.physicalExerciser = physicalExerciser;
+		this.medicationUser = medicationUser;
+		this.medicinesUsedInformation = medicinesUsedInformation;
+		this.familyHealthHistory = familyHealthHistory;
+		this.patientHealthHistory = patientHealthHistory;
+		this.surgeriesHistory = surgeriesHistory;
+		this.chronicDiseasesInformation = chronicDiseasesInformation;
+		this.patientSymptoms = patientSymptoms;
+		this.diagnostics = diagnostics;
+		this.hospitalizations = hospitalizations;
+		this.patient = patient;
+	}
+
+
+	public Long getId() {
+		return id;
+	}
+	public double getWeight() {
+		return weight;
+	}
+	public void setWeight(double weight) {
+		this.weight = weight;
+	}
+	public double getHeight() {
+		return height;
+	}
+	public void setHeight(double height) {
+		this.height = height;
+	}
+	public BloodType getBloodType() {
+		return bloodType;
+	}
+	public void setBloodType(BloodType bloodType) {
+		this.bloodType = bloodType;
+	}
+	public boolean isSmoker() {
+		return smoker;
+	}
+	public void setSmoker(boolean smoker) {
+		this.smoker = smoker;
+	}
+	public boolean isAlcoholConsumer() {
+		return alcoholConsumer;
+	}
+	public void setAlcoholConsumer(boolean alcoholConsumer) {
+		this.alcoholConsumer = alcoholConsumer;
+	}
+	public boolean isPhysicalExerciser() {
+		return physicalExerciser;
+	}
+	public void setPhysicalExerciser(boolean physicalExerciser) {
+		this.physicalExerciser = physicalExerciser;
+	}
+	public boolean isMedicationUser() {
+		return medicationUser;
+	}
+	public void setMedicationUser(boolean medicationUser) {
+		this.medicationUser = medicationUser;
+	}
+	public Set<String> getMedicinesUsedInformation() {
+		return medicinesUsedInformation;
+	}
+	public void setMedicinesUsedInformation(Set<String> medicinesUsedInformation) {
+		this.medicinesUsedInformation = medicinesUsedInformation;
+	}
+	public String getFamilyHealthHistory() {
+		return familyHealthHistory;
+	}
+	public void setFamilyHealthHistory(String familyHealthHistory) {
+		this.familyHealthHistory = familyHealthHistory;
+	}
+	public String getPatientHealthHistory() {
+		return patientHealthHistory;
+	}
+	public void setPatientHealthHistory(String patientHealthHistory) {
+		this.patientHealthHistory = patientHealthHistory;
+	}
+	public Set<String> getSurgeriesHistory() {
+		return surgeriesHistory;
+	}
+	public void setSurgeriesHistory(Set<String> surgeriesHistory) {
+		this.surgeriesHistory = surgeriesHistory;
+	}
+	public Set<String> getChronicDiseasesInformation() {
+		return chronicDiseasesInformation;
+	}
+	public void setChronicDiseasesInformation(Set<String> chronicDiseasesInformation) {
+		this.chronicDiseasesInformation = chronicDiseasesInformation;
+	}
+	public Set<String> getPatientSymptoms() {
+		return patientSymptoms;
+	}
+	public void setPatientSymptoms(Set<String> patientSymptoms) {
+		this.patientSymptoms = patientSymptoms;
+	}
+	public Set<String> getDiagnostics() {
+		return diagnostics;
+	}
+	public void setDiagnostics(Set<String> diagnostics) {
+		this.diagnostics = diagnostics;
+	}
+	public Set<String> getHospitalizations() {
+		return hospitalizations;
+	}
+	public void setHospitalizations(Set<String> hospitalizations) {
+		this.hospitalizations = hospitalizations;
+	}
+	public Patient getPatient() {
+		return patient;
+	}
+	public void setPatient(Patient patient) {
+		this.patient = patient;
+	}
+
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		MedicalHistory other = (MedicalHistory) obj;
+		return Objects.equals(id, other.id);
+	}
+	
+	
+	
+}

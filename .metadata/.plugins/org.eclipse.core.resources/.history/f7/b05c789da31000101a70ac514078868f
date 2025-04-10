@@ -1,0 +1,5 @@
+package dtos.responses.selection;
+
+public record DoctorsPatientSelectionDTO() {
+
+}

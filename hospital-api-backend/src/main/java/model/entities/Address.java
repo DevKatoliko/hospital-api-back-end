@@ -1,46 +1,44 @@
 package model.entities;
 
+import java.io.Serializable;
+import java.util.Objects;
+
 import jakarta.persistence.Embeddable;
-import jakarta.validation.constraints.Digits;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
 
 @Embeddable
-public class Address {
-	@NotBlank(message="O nome da cidade não pode estar em branco")
-	@Size(min=2, max= 32, message = "O nome da cidade deve ter entre 2 a 32 caracteres")
+public class Address implements Serializable{
+
+	private static final long serialVersionUID = 1L;
+
 	private String city;
-	@NotBlank(message="O nome do estado não pode estar em branco")
-	@Size(min=2, max= 32, message = "O nome do estado deve ter entre 2 a 32 caracteres")
+	
 	private String state;
-	@NotBlank(message="O nome da rua não pode estar em branco")
-	@Size(min=2, max= 32, message = "O nome da rua deve ter entre 2 a 32 caracteres")
+	
 	private String streetName;
-	@NotBlank(message="O nome do bairro não pode estar em branco")
-	@Size(min=2, max= 32, message = "O nome do bairro deve ter entre 2 a 32 caracteres")
-	private String neighberhood;
-	@NotBlank(message="O número não pode estar em branco")
-	@Digits(integer = 10, fraction = 0)
+	
+	private String neighborhood;
+	
 	private String number;
-	@NotBlank(message="O CEP não pode estar em branco")
-	@Pattern(regexp = "^\\d{5}-?\\d{3}$", message="CEP inválido! Por favor digite o CEP no formato 12345-678 ou 12345678")
+	
 	private String zipCode;
-	@Size(max = 300, message= "Complemento deve ter no máximo 300 caracteres!")
+	
 	private String complement;
+	
+	protected Address() {
+	}
 	
 	public Address(
 			String city,
 			String state,
 			String streetName,
-			String neighberhood,
+			String neighborhood,
 			String number,
 			String zipCode,
 			String complement) {
 		this.city = city;
 		this.state = state;
 		this.streetName = streetName;
-		this.neighberhood = neighberhood;
+		this.neighborhood = neighborhood;
 		this.number = number;
 		this.zipCode = zipCode;
 		this.complement = complement;
@@ -64,11 +62,11 @@ public class Address {
 	public void setStreetName(String streetName) {
 		this.streetName = streetName;
 	}
-	public String getNeighberhood() {
-		return neighberhood;
+	public String getNeighborhood() {
+		return neighborhood;
 	}
-	public void setNeighberhood(String neighberhood) {
-		this.neighberhood = neighberhood;
+	public void setNeighborhood(String neighborhood) {
+		this.neighborhood = neighborhood;
 	}
 	public String getNumber() {
 		return number;
@@ -87,6 +85,26 @@ public class Address {
 	}
 	public void setComplement(String complement) {
 		this.complement = complement;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(city, complement, neighborhood, number, state, streetName, zipCode);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Address other = (Address) obj;
+		return Objects.equals(city, other.city) && Objects.equals(complement, other.complement)
+				&& Objects.equals(neighborhood, other.neighborhood) && Objects.equals(number, other.number)
+				&& Objects.equals(state, other.state) && Objects.equals(streetName, other.streetName)
+				&& Objects.equals(zipCode, other.zipCode);
 	}
 
 	
