@@ -1,0 +1,7 @@
+package dtos.responses;
+
+import java.time.LocalDate;
+
+public record MedicalExamResponseDTO(String patientName, String doctorName,String doctorsObservations, LocalDate examDate) {
+
+}

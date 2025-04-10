@@ -1,0 +1,9 @@
+package repositories;
+
+import org.springframework.stereotype.Repository;
+
+import model.entities.User;
+@Repository
+public interface UserRepository extends GeneralRepository<User, Long>{
+	User getUserByUid(String uid);
+}

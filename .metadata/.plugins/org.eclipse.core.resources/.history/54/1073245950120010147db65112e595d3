@@ -1,0 +1,13 @@
+package dtos.responses;
+
+import java.time.LocalDate;
+import java.util.Set;
+
+import model.entities.MedicalExam;
+
+public record MedicalExamBasicDTO(String patientName, String physicalExam,Set<String> complementaryExams,Set<String> examMeasuresResult,String methods,String doctorsObservations, LocalDate examDate) {
+	public static MedicalExamBasicDTO fromMedicalExam(MedicalExam medicalExam) {
+		String patientName = medicalExam.getMedicalRecord().getPatient().getName();
+		return new MedicalExamBasicDTO(patientName, medicalExam.getPhysicalExam(), medicalExam.getComplementaryExams(), medicalExam.getExamMeasuresResult(), medicalExam.getMethods(), medicalExam.getDoctorObservations(), medicalExam.getExamDate());
+	}
+}

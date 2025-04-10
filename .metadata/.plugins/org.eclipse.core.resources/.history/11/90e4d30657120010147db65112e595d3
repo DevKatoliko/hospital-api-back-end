@@ -1,0 +1,13 @@
+package dtos.responses;
+
+import java.util.List;
+import java.util.Set;
+
+public record MedicalRecordDTO(
+		List<DoctorResponseDTO> doctors,
+		PatientResponseDTO patient,
+		List<String> symptoms,
+		MedicalHistory medicalHistory,
+		String hypotheticalDiagnostic,) {
+
+}

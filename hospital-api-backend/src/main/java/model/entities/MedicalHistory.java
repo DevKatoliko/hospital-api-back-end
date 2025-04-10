@@ -1,6 +1,10 @@
 package model.entities;
 
-import java.util.List;
+import java.io.Serializable;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
@@ -17,85 +21,109 @@ import jakarta.persistence.Table;
 import model.enums.BloodType;
 @Entity
 @Table(name= "medical_history_records")
-public class MedicalHistory {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	private double weight;
-	private double height;
-	@Enumerated(value=EnumType.STRING)
-	private BloodType bloodType;
-	private boolean smoker;
-	@Column(name="drink_alcohol")
-	private boolean drinkAlcohol;
-	@Column(name="practice_physical_exercise")
-	private boolean practicesPhysicalExercise;
-	@Column(name="uses_medicine")
-	private boolean usesMedicine;
-	@ElementCollection
-	@CollectionTable(name="patients_medicines_information", joinColumns = @JoinColumn(name = "medical_history_id"))
-	@Column(name="medicines")
-	private List<String> medicinesUsedInformation;
-	@Column(name="family_health_history")
-	private String familyHealthHistory; //  Information about the patient's family health history
-	@Column(name="patient_health_history")
-	private String patientHealthHistory; // Information about the health condition of the patient
-	@ElementCollection
-	@CollectionTable(name = "surgeries_history", joinColumns = @JoinColumn(name= "medical_history_id"))
-	@Column(name="surgeries")
-	private List<String> surgeriesHistory;
-	@ElementCollection
-	@CollectionTable(name="patients_chronic_diseases_information", joinColumns = @JoinColumn(name = "medical_history_id"))
-	@Column(name="chronic_diseases")
-	private List<String> chronicDiseasesInformation;
-	@ElementCollection
-	@CollectionTable(name="patients_symptoms", joinColumns = @JoinColumn(name = "medical_history_id"))
-	@Column(name="symptoms")
-	private List<String> patientSymptoms;
-	@ElementCollection
-	@CollectionTable(name="patients_diagnostics", joinColumns = @JoinColumn(name = "medical_history_id"))
-	@Column(name="diagnostics")
-	private List<String> diagnostics;
-	@ElementCollection
-	@CollectionTable(name="patients_hospitalizations", joinColumns = @JoinColumn(name = "medical_history_id"))
-	@Column(name="hospitalizations")
-	private List<String> hospitalizations;
-	@OneToOne
-	@JoinColumn(name="patient", referencedColumnName = "id", nullable = false)
-	private Patient patient;
-	
+public class MedicalHistory implements Serializable{
+    private static final long serialVersionUID = 1L;
+	private static final String NULL_ERROR_WEIGHT = "O peso não pode ser nulo!";
+    private static final String NULL_ERROR_HEIGHT = "A altura não pode ser nula!";
+    private static final String NULL_ERROR_BLOOD = "É necessário informar o tipo sanguíneo!";
+    private static final String NULL_ERROR_FAMILY_HISTORY = "O histórico de saúde familiar não pode ser nulo!";
+    private static final String NULL_ERROR_PATIENT_HISTORY = "O histórico de saúde do paciente não pode ser nulo!";
+   
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    
+    @Column(nullable = false)
+    private double weight;
+    
+    @Column(nullable = false)
+    private double height;
+    
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private BloodType bloodType;
+
+    @Column(nullable = false)
+    private boolean smoker;
+
+    @Column(name = "drink_alcohol", nullable = false)
+    private boolean alcoholConsumer;
+
+    @Column(name = "practice_physical_exercise", nullable = false)
+    private boolean physicalExerciser;
+
+    @Column(name = "uses_medicine", nullable = false)
+    private boolean medicationUser;
+
+    @ElementCollection
+    @CollectionTable(name = "patients_medicines_information", joinColumns = @JoinColumn(name = "medical_history_id"))
+    @Column(name = "medicines")
+    private Set<String> medicinesUsedInformation = new HashSet<>();
+
+    @Column(name = "family_health_history", nullable = false)
+    private String familyHealthHistory;
+
+    @Column(name = "patient_health_history", nullable = false)
+    private String patientHealthHistory;
+
+    @ElementCollection
+    @CollectionTable(name = "surgeries_history", joinColumns = @JoinColumn(name = "medical_history_id"))
+    @Column(name = "surgeries")
+    private Set<String> surgeriesHistory = new HashSet<>();
+
+    @ElementCollection
+    @CollectionTable(name = "patients_chronic_diseases_information", joinColumns = @JoinColumn(name = "medical_history_id"))
+    @Column(name = "chronic_diseases")
+    private Set<String> chronicDiseasesInformation = new HashSet<>();
+
+    @ElementCollection
+    @CollectionTable(name = "patients_symptoms", joinColumns = @JoinColumn(name = "medical_history_id"))
+    @Column(name = "symptoms")
+    private Set<String> patientSymptoms = new HashSet<>();
+
+    @ElementCollection
+    @CollectionTable(name = "patients_diagnostics", joinColumns = @JoinColumn(name = "medical_history_id"))
+    @Column(name = "diagnostics")
+    private Set<String> diagnostics = new HashSet<>();
+
+    @ElementCollection
+    @CollectionTable(name = "patients_hospitalizations", joinColumns = @JoinColumn(name = "medical_history_id"))
+    @Column(name = "hospitalizations")
+    private Set<String> hospitalizations = new HashSet<>(); // Describe the circumstances, for how long and other details 
+
+    @OneToOne
+    @JoinColumn(name = "patient", referencedColumnName = "id")
+    private Patient patient;
+
 	protected MedicalHistory() {}
 	
 	
-	public MedicalHistory(double weight, double height, BloodType bloodType, boolean smoker, boolean drinkAlcohol,
-			boolean practicesPhysicalExercise, boolean usesMedicine, List<String> medicinesUsedInformation,
-			String familyHealthHistory, String patientHealthHistory, List<String> surgeriesHistory,
-			List<String> chronicDiseasesInformation, List<String> patientSymptoms, List<String> diagnostics,
-			List<String> hospitalizations, Patient patient) {
-		this.weight = weight;
-		this.height = height;
-		this.bloodType = bloodType;
-		this.smoker = smoker;
-		this.drinkAlcohol = drinkAlcohol;
-		this.practicesPhysicalExercise = practicesPhysicalExercise;
-		this.usesMedicine = usesMedicine;
-		this.medicinesUsedInformation = medicinesUsedInformation;
-		this.familyHealthHistory = familyHealthHistory;
-		this.patientHealthHistory = patientHealthHistory;
-		this.surgeriesHistory = surgeriesHistory;
-		this.chronicDiseasesInformation = chronicDiseasesInformation;
-		this.patientSymptoms = patientSymptoms;
-		this.diagnostics = diagnostics;
-		this.hospitalizations = hospitalizations;
-		this.patient = patient;
+	public MedicalHistory(double weight, double height, BloodType bloodType, boolean smoker, boolean alcoholConsumer,
+			boolean physicalExerciser, boolean medicationUser, Set<String> medicinesUsedInformation,
+			String familyHealthHistory, String patientHealthHistory, Set<String> surgeriesHistory,
+			Set<String> chronicDiseasesInformation, Set<String> patientSymptoms, Set<String> diagnostics,
+			Set<String> hospitalizations) {
+		 this.weight = Objects.requireNonNull(weight, NULL_ERROR_WEIGHT);
+		    this.height = Objects.requireNonNull(height, NULL_ERROR_HEIGHT);
+		    this.bloodType = Objects.requireNonNull(bloodType, NULL_ERROR_BLOOD);
+		    this.smoker = smoker;
+		    this.alcoholConsumer = alcoholConsumer;
+		    this.physicalExerciser = physicalExerciser;
+		    this.medicationUser = medicationUser;
+		    this.medicinesUsedInformation = (medicinesUsedInformation != null) ? new HashSet<>(medicinesUsedInformation) : new HashSet<>();
+		    this.familyHealthHistory = Objects.requireNonNull(familyHealthHistory, NULL_ERROR_FAMILY_HISTORY);
+		    this.patientHealthHistory = Objects.requireNonNull(patientHealthHistory, NULL_ERROR_PATIENT_HISTORY);
+		    this.surgeriesHistory = (surgeriesHistory != null) ? new HashSet<>(surgeriesHistory) : new HashSet<>();
+		    this.chronicDiseasesInformation = (chronicDiseasesInformation != null) ? new HashSet<>(chronicDiseasesInformation) : new HashSet<>();
+		    this.patientSymptoms = (patientSymptoms != null) ? new HashSet<>(patientSymptoms) : new HashSet<>();
+		    this.diagnostics = (diagnostics != null) ? new HashSet<>(diagnostics) : new HashSet<>();
+		    this.hospitalizations = (hospitalizations != null) ? new HashSet<>(hospitalizations) : new HashSet<>();
 	}
 
 
 	public Long getId() {
 		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
 	}
 	public double getWeight() {
 		return weight;
@@ -121,29 +149,29 @@ public class MedicalHistory {
 	public void setSmoker(boolean smoker) {
 		this.smoker = smoker;
 	}
-	public boolean isDrinkAlcohol() {
-		return drinkAlcohol;
+	public boolean isAlcoholConsumer() {
+		return alcoholConsumer;
 	}
-	public void setDrinkAlcohol(boolean drinkAlcohol) {
-		this.drinkAlcohol = drinkAlcohol;
+	public void setAlcoholConsumer(boolean alcoholConsumer) {
+		this.alcoholConsumer = alcoholConsumer;
 	}
-	public boolean isPracticesPhysicalExercise() {
-		return practicesPhysicalExercise;
+	public boolean isPhysicalExerciser() {
+		return physicalExerciser;
 	}
-	public void setPracticesPhysicalExercise(boolean practicesPhysicalExercise) {
-		this.practicesPhysicalExercise = practicesPhysicalExercise;
+	public void setPhysicalExerciser(boolean physicalExerciser) {
+		this.physicalExerciser = physicalExerciser;
 	}
-	public boolean isUsesMedicine() {
-		return usesMedicine;
+	public boolean isMedicationUser() {
+		return medicationUser;
 	}
-	public void setUsesMedicine(boolean usesMedicine) {
-		this.usesMedicine = usesMedicine;
+	public void setMedicationUser(boolean medicationUser) {
+		this.medicationUser = medicationUser;
 	}
-	public List<String> getMedicinesUsedInformation() {
-		return medicinesUsedInformation;
+	public Set<String> getMedicinesUsedInformation() {
+		return  Collections.unmodifiableSet(medicinesUsedInformation);
 	}
-	public void setMedicinesUsedInformation(List<String> medicinesUsedInformation) {
-		this.medicinesUsedInformation = medicinesUsedInformation;
+	public void setMedicinesUsedInformation(Set<String> medicinesUsedInformation) {
+		this.medicinesUsedInformation = (medicinesUsedInformation != null) ? new HashSet<>(medicinesUsedInformation): new HashSet<>();
 	}
 	public String getFamilyHealthHistory() {
 		return familyHealthHistory;
@@ -157,35 +185,35 @@ public class MedicalHistory {
 	public void setPatientHealthHistory(String patientHealthHistory) {
 		this.patientHealthHistory = patientHealthHistory;
 	}
-	public List<String> getSurgeriesHistory() {
-		return surgeriesHistory;
+	public Set<String> getSurgeriesHistory() {
+		return Collections.unmodifiableSet(surgeriesHistory);
 	}
-	public void setSurgeriesHistory(List<String> surgeriesHistory) {
-		this.surgeriesHistory = surgeriesHistory;
+	public void setSurgeriesHistory(Set<String> surgeriesHistory) {
+		this.surgeriesHistory = (surgeriesHistory != null) ? new HashSet<>(surgeriesHistory): new HashSet<>();
 	}
-	public List<String> getChronicDiseasesInformation() {
-		return chronicDiseasesInformation;
+	public Set<String> getChronicDiseasesInformation() {
+		return Collections.unmodifiableSet(chronicDiseasesInformation);
 	}
-	public void setChronicDiseasesInformation(List<String> chronicDiseasesInformation) {
-		this.chronicDiseasesInformation = chronicDiseasesInformation;
+	public void setChronicDiseasesInformation(Set<String> chronicDiseasesInformation) {
+		this.chronicDiseasesInformation = (chronicDiseasesInformation != null) ? new HashSet<>(chronicDiseasesInformation) : new HashSet<>();
 	}
-	public List<String> getPatientSymptoms() {
-		return patientSymptoms;
+	public Set<String> getPatientSymptoms() {
+		return Collections.unmodifiableSet(patientSymptoms);
 	}
-	public void setPatientSymptoms(List<String> patientSymptoms) {
-		this.patientSymptoms = patientSymptoms;
+	public void setPatientSymptoms(Set<String> patientSymptoms) {
+		this.patientSymptoms = (patientSymptoms != null) ?  new HashSet<>(patientSymptoms) : new HashSet<>();
 	}
-	public List<String> getDiagnostics() {
-		return diagnostics;
+	public Set<String> getDiagnostics() {
+		return Collections.unmodifiableSet(diagnostics);
 	}
-	public void setDiagnostics(List<String> diagnostics) {
-		this.diagnostics = diagnostics;
+	public void setDiagnostics(Set<String> diagnostics) {
+		this.diagnostics = (diagnostics != null) ? new HashSet<>(diagnostics) : new HashSet<>();
 	}
-	public List<String> getHospitalizations() {
-		return hospitalizations;
+	public Set<String> getHospitalizations() {
+		return Collections.unmodifiableSet(hospitalizations);
 	}
-	public void setHospitalizations(List<String> hospitalizations) {
-		this.hospitalizations = hospitalizations;
+	public void setHospitalizations(Set<String> hospitalizations) {
+		this.hospitalizations = (hospitalizations != null) ? new HashSet<>(hospitalizations) : new HashSet<>();
 	}
 	public Patient getPatient() {
 		return patient;
@@ -193,6 +221,26 @@ public class MedicalHistory {
 	public void setPatient(Patient patient) {
 		this.patient = patient;
 	}
+
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		MedicalHistory other = (MedicalHistory) obj;
+		return Objects.equals(id, other.id);
+	}
+	
 	
 	
 }

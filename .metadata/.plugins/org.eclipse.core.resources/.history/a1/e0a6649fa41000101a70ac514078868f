@@ -1,0 +1,9 @@
+package dtos.responses.selection;
+
+import model.entities.Doctor;
+
+public record DoctorsPatientSelectionDTO(Long patientId, String name, String lastName) {
+	public static DoctorsPatientSelectionDTO fromDoctor(Doctor doctor) {
+		return new DoctorsPatientSelectionDTO(doctor.getPatients()., null, null);
+	}
+}

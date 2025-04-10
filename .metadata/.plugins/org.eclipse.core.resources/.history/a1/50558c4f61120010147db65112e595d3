@@ -1,0 +1,13 @@
+package dtos.creations;
+
+import jakarta.validation.constraints.NotBlank;
+
+public record UserCreationDTO(
+		@NotBlank(message = "Informe o nome de usuário!")
+		String userName, 
+		@NotBlank(message = "Informe o seu e-mail!")
+		String email, 
+		@NotBlank(message = "Informe uma senha segura!!")
+		String password) {
+
+}

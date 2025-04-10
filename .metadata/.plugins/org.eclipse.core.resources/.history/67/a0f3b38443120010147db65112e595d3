@@ -1,0 +1,24 @@
+package dtos.creations;
+
+import java.time.LocalDate;
+import java.util.Set;
+
+import jakarta.validation.constraints.NotNull;
+import model.enums.ScheduleType;
+import validation.annotations.PhysicalExamValidation;
+/*This DTO class will contain the basic information for creating a Medical record that will be created by a service class*/
+@PhysicalExamValidation
+public record DoctorsPatientExamCreationDTO(
+		@NotNull(message = "É necessário informar qual o tipo de agendamento!")
+		ScheduleType scheduleType,
+		@NotNull(message = "É necessário informar quais são os sintomas do paciente!")
+		Set<String> symptoms, 
+		String physicalExam,
+		@NotNull(message = "É necesssário informar qual o diagnóstico hipotético!")
+		String hypotheticalDiagnostic, 
+		@NotNull(message = "É necesssário informar a data da consulta!")
+		LocalDate examDate,
+		@NotNull(message = "É necesssário informar o paciente!")
+		Long patientId) {
+
+}
