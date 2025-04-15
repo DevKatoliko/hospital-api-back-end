@@ -1,5 +1,0 @@
-package dtos.creations;
-
-public record UserCreationDTO() {
-
-}

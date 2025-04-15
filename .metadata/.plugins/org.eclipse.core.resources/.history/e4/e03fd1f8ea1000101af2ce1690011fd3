@@ -1,5 +1,0 @@
-package validation.annotations;
-
-public @interface ScheduleTypeValidation {
-	String message() default "É necessário informar ";
-}

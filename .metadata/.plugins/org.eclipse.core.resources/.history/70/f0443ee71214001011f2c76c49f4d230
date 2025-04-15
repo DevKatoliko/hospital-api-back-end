@@ -1,7 +1,0 @@
-package repositories;
-
-import model.entities.User;
-
-public class UserRepository extends GeneralRepository<User,Long>{
-
-}

@@ -1,7 +1,0 @@
-package dtos.creations;
-
-import java.util.Set;
-
-public record DoctorsPatientExam(Set<String> symptoms, String physicalExam, ) {
-
-}

@@ -1,5 +1,0 @@
-package dtos.responses.selection;
-
-public record SchedulePatientSelectionDTO() {
-
-}

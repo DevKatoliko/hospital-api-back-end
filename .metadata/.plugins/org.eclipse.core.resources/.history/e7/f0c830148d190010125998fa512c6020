@@ -1,0 +1,57 @@
+package userTests;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.auth.UserRecord;
+
+import dtos.creations.UserCreationDTO;
+import model.entities.User;
+import repositories.UserRepository;
+import services.UserService;
+
+@ExtendWith(MockitoExtension.class)
+public class UserServiceTest {
+	@Mock
+	private UserRepository userRepository;
+	
+	@InjectMocks
+	private UserService userService;
+	
+	@Mock
+	private FirebaseAuth firebaseAuth;
+	
+	private UserCreationDTO userDTO;
+	
+
+	@BeforeEach
+	void setUp() throws FirebaseAuthException{
+		userDTO = new UserCreationDTO("mockUser","useremail@gmail.com","password123");
+		UserRecord userRecord = mock(UserRecord.class);
+		when(userRecord.getUid()).thenAnswer(invocation -> invocation.getArguments());
+		when(firebaseAuth.createUser(any(UserRecord.CreateRequest.class))).thenReturn(userRecord);
+		when(userRepository.save(any(User.class)))
+	    .thenAnswer(invocation -> invocation.getArgument(0));
+		}
+	
+	@Test
+	void createPatient() throws FirebaseAuthException {
+		User userPatient = userService.registerUserPatient(userDTO);
+		
+		assertEquals("mockUser", userPatient.getLogin());
+		assertEquals("useremail@gmail.com", userPatient.getEmail());
+		assertEquals("PATIENT", userPatient.getRole().toString());
+	}
+	
+}

@@ -1,5 +1,0 @@
-package dtos.responses;
-
-public record MedicalHistoryResponseDTO(Long patientId, String patientName) {
-
-}

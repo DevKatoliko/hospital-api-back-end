@@ -1,5 +1,0 @@
-package dtos.responses;
-
-public record MedicalRecordInitalResponseDTO(String patientName, String doctorName,) {
-
-}
