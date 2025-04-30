@@ -1,0 +1,7 @@
+package repositories;
+
+import model.entities.Nurse;
+
+public interface NurseRepository extends GeneralRepository<Nurse,Long>{
+
+}

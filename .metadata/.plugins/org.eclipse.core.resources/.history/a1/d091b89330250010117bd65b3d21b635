@@ -1,0 +1,83 @@
+package services;
+
+import org.springframework.stereotype.Service;
+
+import dtos.creations.PatientCreationDTO;
+import dtos.responses.PatientResponseDTO;
+import exceptions.PersonNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
+import model.entities.Address;
+import model.entities.Hospital;
+import model.entities.Patient;
+import repositories.HospitalRepository;
+import repositories.PatientRepository;
+
+@Service
+public class PatientService {
+	private final PatientRepository patientRepository;
+	private final HospitalRepository hospitalRepository;
+	
+	public PatientService(PatientRepository patientRepository, HospitalRepository hospitalRepository) {
+			this.patientRepository = patientRepository;
+			this.hospitalRepository = hospitalRepository;
+	}
+	
+	@Transactional
+	public PatientResponseDTO createPatient(PatientCreationDTO patientDTO) {
+		Patient patient = patientCreationDTOToPatientEntity(patientDTO);
+		var patientResponseDTO = PatientResponseDTO.fromPatient(patient);
+		patientRepository.save(patient);
+		return patientResponseDTO;
+	}
+	
+	private Patient patientCreationDTOToPatientEntity(PatientCreationDTO patientDTO) {
+		Hospital hospital = hospitalRepository.getReferenceById(patientDTO.personDTO().hospitalId());
+		Hospital.verifyHospital(hospital);
+		Address address = Address.convertFromDTO(patientDTO.personDTO().addressDTO());
+		
+		var patient = new Patient(
+				patientDTO.personDTO().name(),
+				patientDTO.personDTO().lastName(),
+				patientDTO.personDTO().gender(),
+				patientDTO.personDTO().cpf(),
+				patientDTO.personDTO().birthDate(),
+				patientDTO.personDTO().telephoneNumber(),
+				patientDTO.personDTO().cellphoneNumber(),
+				patientDTO.personDTO().email(),
+				address,
+				patientDTO.personDTO().nationality(),
+				hospital,
+				patientDTO.profession(),
+				patientDTO.mothersName());
+	
+		return patient;
+	}
+	@Transactional
+	public PatientResponseDTO getPatient(Long id) {
+		var patient = patientRepository.getReferenceById(id);
+		verifyPatient(patient);
+		return PatientResponseDTO.fromPatient(patient);
+	}
+	
+	@Transactional
+	public void updatePatient(Long patientId, PatientCreationDTO patientUpdate) {
+		var patient = patientRepository.getReferenceById(patientId);
+		verifyPatient(patient);
+		Hospital hospital = hospitalRepository.getReferenceById(patientUpdate.personDTO().hospitalId());
+		Hospital.verifyHospital(hospital);
+		patient.setName(patientUpdate.personDTO().name());
+		patient.setLastName(patientUpdate.personDTO().lastName());
+		patient.setGender(patientUpdate.personDTO().gender());
+		patient.setHospital(hospital);
+		patientRepository.save(patient);
+	}
+	
+	private void verifyPatient(Patient patient) {
+		try {
+			patient.getId();
+		}catch(EntityNotFoundException ex) {
+			throw new PersonNotFoundException("Paciente não encontrado!", ex.getCause());
+		}
+	}
+}

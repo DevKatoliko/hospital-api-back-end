@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;services.PersonService&apos; to &apos;PatientService&apos;&#x0A;- Original project: &apos;hospital-api-backend&apos;&#x0A;- Original element: &apos;services.PersonService&apos;&#x0A;- Renamed element: &apos;services.PatientService&apos;&#x0A;- Update references to refactored element&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;PersonService&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;services{PersonService.java[PersonService" matchStrategy="1" name="PatientService" qualified="false" references="true" similarDeclarations="false" stamp="1745532643140" textual="false" version="1.0"/>
+</session>

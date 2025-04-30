@@ -38,7 +38,7 @@ public record PersonCreationDTO(
 		String email,
 		@Valid
 		@NotNull(message = "O endereço é obrigatório!")
-		AddressCreationDTO address, 
+		AddressCreationDTO addressDTO, 
 		@NotNull(message = "A nacionalidade é obrigatória!")
 		NationalityType nationality,
 		@NotNull(message = "É necessário informar o hospital!")

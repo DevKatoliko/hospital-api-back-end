@@ -3,6 +3,7 @@ package model.entities;
 import java.io.Serializable;
 import java.util.Objects;
 
+import dtos.creations.AddressCreationDTO;
 import jakarta.persistence.Embeddable;
 
 @Embeddable
@@ -86,7 +87,17 @@ public class Address implements Serializable{
 	public void setComplement(String complement) {
 		this.complement = complement;
 	}
-
+	
+	public static Address convertFromDTO(AddressCreationDTO addressDTO) {
+		return new Address(
+				addressDTO.city(),
+				addressDTO.state(),
+				addressDTO.streetName(),
+				addressDTO.neighborhood(),
+				addressDTO.number(),
+				addressDTO.zipCode(),
+				addressDTO.complement());
+	}
 	@Override
 	public int hashCode() {
 		return Objects.hash(city, complement, neighborhood, number, state, streetName, zipCode);

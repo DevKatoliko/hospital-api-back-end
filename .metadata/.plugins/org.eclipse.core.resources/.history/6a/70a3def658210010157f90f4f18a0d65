@@ -1,0 +1,36 @@
+package services;
+
+import org.springframework.stereotype.Service;
+
+import dtos.creations.PatientCreationDTO;
+import dtos.responses.PatientResponseDTO;
+import jakarta.transaction.Transactional;
+import repositories.AdministratorRepository;
+import repositories.DoctorRepository;
+import repositories.NurseRepository;
+import repositories.PatientRepository;
+
+@Service
+public class PersonService {
+	private final PatientRepository patientRepository;
+	private final DoctorRepository doctorRepository;
+	private final NurseRepository nurseRepository;
+	private final AdministratorRepository administratorRepository;
+	
+	public PersonService(
+			PatientRepository patientRepository, DoctorRepository doctorRepository,
+			NurseRepository nurseRepository, AdministratorRepository administratorRepository) {
+			this.patientRepository = patientRepository;
+			this.doctorRepository = doctorRepository;
+			this.nurseRepository = nurseRepository;
+			this.administratorRepository = administratorRepository;
+	}
+	
+	@Transactional
+	public PatientResponseDTO createPatient(PatientCreationDTO patientDTO) {
+		
+		return null;
+	}
+	
+	
+}

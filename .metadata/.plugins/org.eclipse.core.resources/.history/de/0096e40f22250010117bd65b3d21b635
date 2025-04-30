@@ -1,0 +1,24 @@
+package controllers;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import dtos.creations.PatientCreationDTO;
+import dtos.creations.PersonCreationDTO;
+import dtos.responses.PatientResponseDTO;
+import jakarta.validation.Valid;
+
+@Controller
+@RequestMapping("/patient")
+public class PatientController {
+	
+	@PostMapping()
+	public ResponseEntity<PatientResponseDTO> createPatient(@RequestBody @Valid PersonCreationDTO personDTO,
+															@RequestBody @Valid PatientCreationDTO patientDTO){
+		
+		return null;
+	}
+}

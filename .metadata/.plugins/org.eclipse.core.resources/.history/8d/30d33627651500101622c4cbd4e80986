@@ -1,5 +1,0 @@
-package dtos.updates;
-
-public record UserPasswordUpdateDTO() {
-
-}

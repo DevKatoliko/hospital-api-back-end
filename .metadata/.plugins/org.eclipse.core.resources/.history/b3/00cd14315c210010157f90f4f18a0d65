@@ -1,0 +1,47 @@
+package services;
+
+import org.springframework.stereotype.Service;
+
+import dtos.creations.PatientCreationDTO;
+import dtos.creations.PersonCreationDTO;
+import dtos.responses.PatientResponseDTO;
+import jakarta.transaction.Transactional;
+import model.entities.Patient;
+import repositories.PatientRepository;
+
+@Service
+public class PatientService {
+	private final PatientRepository patientRepository;
+	
+	
+	public PatientService(
+			PatientRepository patientRepository) {
+			this.patientRepository = patientRepository;
+		
+	}
+	
+	@Transactional
+	public PatientResponseDTO createPatient(PatientCreationDTO patientDTO, PersonCreationDTO personDTO) {
+		
+		return null;
+	}
+	
+	private Patient patientCreationDTOToPatientEntity(PatientCreationDTO patientDTO, PersonCreationDTO personDTO) {
+		
+		var patient = new Patient(
+				personDTO.name(),
+				personDTO.lastName(),
+				personDTO.gender(),
+				personDTO.cpf(),
+				personDTO.birthDate(),
+				personDTO.telephoneNumber(),
+				personDTO.cellphoneNumber(),
+				personDTO.email(),
+				personDTO.address(),
+				personDTO.nationality(),
+				personDTO.hospitalId(),
+				patientDTO.profession(),
+				patientDTO.mothersName());
+	}
+	
+}

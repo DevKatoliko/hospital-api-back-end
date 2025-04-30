@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.google.firebase.auth.FirebaseAuthException;
 
+import exceptions.HospitalNotFoundException;
+import exceptions.PersonNotFoundException;
+
 @ControllerAdvice
 public class GlobalExceptionHandler {
 	@ExceptionHandler(FirebaseAuthException.class)
@@ -18,5 +21,14 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(UsernameNotFoundException.class)
 	public ResponseEntity<String> handleUsernameNotFoundException(UsernameNotFoundException ex){
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuário não encontrado! " + ex.getMessage() );
+	}
+	
+	@ExceptionHandler(HospitalNotFoundException.class)
+	public ResponseEntity<String> handleHospitalNotFoundException(HospitalNotFoundException ex){
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Hospital não encontrado!" + ex.getMessage());
+	}
+	@ExceptionHandler(PersonNotFoundException.class)
+	public ResponseEntity<String> handlePersonNotFoundException(PersonNotFoundException ex){
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Pessoa não encontrada!" + ex.getMessage());
 	}
 }
