@@ -146,12 +146,6 @@ public abstract class Person implements Serializable {
 	public void setAddress(Address address) {
 		this.address = Objects.requireNonNull(address, "O endereço não pode ser nulo!");
 	}
-	public Hospital getHospitalId() {
-		return hospital;
-	}
-	public void setHospitalId(Hospital hospital) {
-		this.hospital = Objects.requireNonNull(hospital, "O hospital não pode ser nulo!");
-	}
 	
 	public NationalityType getNationality() {
 		return nationality;

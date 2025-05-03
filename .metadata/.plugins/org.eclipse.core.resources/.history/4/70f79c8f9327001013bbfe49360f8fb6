@@ -1,0 +1,16 @@
+package dtos.updates;
+
+import java.time.LocalDate;
+
+import model.enums.Gender;
+
+public record PersonUpdateDTO(
+		 String name,
+		 String lastName,
+		 Gender gender,
+		 LocalDate birthDate,
+		 String telephoneNumber,
+		 String cellphoneNumber,
+		 String email) {
+
+}

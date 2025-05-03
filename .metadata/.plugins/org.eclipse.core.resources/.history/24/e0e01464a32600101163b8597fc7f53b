@@ -1,0 +1,83 @@
+package patientTest;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.test.util.ReflectionTestUtils;
+
+import dtos.creations.PatientCreationDTO;
+import dtos.creations.PersonCreationDTO;
+import dtos.responses.PatientResponseDTO;
+import model.entities.Address;
+import model.entities.Hospital;
+import model.enums.Gender;
+import model.enums.NationalityType;
+import repositories.HospitalRepository;
+import repositories.PatientRepository;
+import services.PatientService;
+
+@ExtendWith(MockitoExtension.class)
+public class PatientServiceTest {
+	@Mock
+	private PatientRepository patientRepository;
+	@Mock
+	private HospitalRepository hospitalRepository;
+	@InjectMocks
+	private PatientService patientService;
+	
+	private PatientCreationDTO patientDTO;
+	
+	@BeforeEach
+	void setUp(){
+		var address = new Address("MockCity",
+				"MockState",
+				"MockStreet",
+				"MockNeighbor",
+				"MockNumber",
+				"MockZip",
+				"MockComplement");
+		var hospital = new Hospital("MockHospital",
+				address,
+				"(11)32223332", 
+				BigDecimal.valueOf(200),
+				BigDecimal.valueOf(350),
+				BigDecimal.valueOf(20000));
+		ReflectionTestUtils.setField(hospital, "id", 1l);
+		when(hospitalRepository.save(any(Hospital.class))).thenReturn(hospital);
+		hospitalRepository.save(hospital);
+		var personDTO = new PersonCreationDTO(
+				"Adam",
+				"Zuppi",
+				Gender.MALE,
+				"111.111.111-11",
+				LocalDate.of(1995, 10, 20),
+				"(11)30559988",
+				"(11)99887799",
+				"adam@email.com",
+				null,
+				NationalityType.BRAZILIAN,
+				1l
+				);
+		patientDTO = new PatientCreationDTO(personDTO,"Teacher","Barbara"); 
+	}
+	
+	@Test
+	void createPatientTest() {
+		PatientResponseDTO response = patientService.createPatient(patientDTO);
+		assertEquals("Adam", response.name());
+		assertEquals("Zuppi", response.lastName());
+		assertEquals("MALE", response.gender().toString());
+		assertEquals("MockHospital", response.hospitalName());
+		assertEquals(1l, response.hospitalId());
+	}
+}

@@ -1,0 +1,86 @@
+package serviceTests;
+
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.lenient;
+import static org.mockito.Mockito.verify;
+
+import java.util.Optional;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import dtos.creations.PatientCreationDTO;
+import dtos.responses.PatientResponseDTO;
+import model.entities.Hospital;
+import model.entities.Patient;
+import repositories.HospitalRepository;
+import repositories.PatientRepository;
+import serviceTests.serviceUtility.TestUtil;
+import services.PatientService;
+
+@ExtendWith(MockitoExtension.class)
+public class PatientServiceTest {
+	@Mock
+	private PatientRepository patientRepository;
+	@Mock
+	private HospitalRepository hospitalRepository;
+	@InjectMocks
+	private PatientService patientService;
+	
+	private PatientCreationDTO patientDTO;
+	
+	private Hospital hospital;
+	
+	@Autowired
+	private TestUtil util =  new TestUtil();
+	
+	@BeforeEach
+	void setUp(){
+		patientDTO = util.setUpMockPatientCreationDTO();
+		
+		hospital = util.setUpMockHospital();
+		lenient().when(hospitalRepository.findById(1L)).thenReturn(Optional.of(hospital));
+		
+		Patient patient = util.mockPatientDTOToMockEntity(patientDTO);
+		lenient().when(patientRepository.findById(1L)).thenReturn(Optional.of(patient));
+		
+	}
+	
+	@DisplayName("Deve criar paciente com dados válidos")
+	@Test
+	void createPatientTest() {
+		PatientResponseDTO response = patientService.createPatient(patientDTO);
+		assertAll(
+				() -> assertEquals("Adam", response.name()),
+				() -> assertEquals("Zuppi", response.lastName()),
+				() -> assertEquals("MALE", response.gender().toString()),
+				() -> assertEquals("MockHospital", response.hospitalName()),
+				() -> assertEquals(1l, response.hospitalId())
+				);
+		verify(patientRepository).save(any(Patient.class));
+		verify(hospitalRepository).findById(1L);
+	}
+	
+	@DisplayName("Deve recuperar entidade do banco de dados e retornar um DTO com dados válidos")
+	@Test
+	void getPatientTest() {
+		PatientResponseDTO response = patientService.getPatient(1L);
+		assertAll(
+				() -> assertEquals("Adam", response.name(),"Nome falhou"),
+				() -> assertEquals("Zuppi", response.lastName(),"Sobrenome falhou"),
+				() -> assertEquals("MALE", response.gender().toString(),"Genero falhou"),
+				() -> assertEquals("MockHospital", response.hospitalName(),"Nome do hospital falhou"),
+				() -> assertEquals(1l, response.hospitalId(),"Id do hospital falhou")
+				);
+	}
+	
+	
+}

@@ -1,0 +1,16 @@
+package dtos.responses;
+
+import model.entities.Patient;
+import model.enums.Gender;
+
+public record PatientResponseDTO(String name, String lastName, Gender gender, String hospitalName, Long hospitalId) {
+	public static PatientResponseDTO fromPatient(Patient patient) {
+		return new PatientResponseDTO(
+				patient.getName(),
+				patient.getLastName(), 
+				patient.getGender(), 
+				patient.getHospital().getName(),
+				patient.getHospitalId());
+	}
+	
+}

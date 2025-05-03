@@ -2,6 +2,7 @@ package controllers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,14 +13,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 import dtos.creations.PatientCreationDTO;
 import dtos.responses.PatientResponseDTO;
+import dtos.updates.responses.PatientUpdateFormDTO;
 import jakarta.validation.Valid;
 import services.PatientService;
 
 @RestController
 @RequestMapping("/patients")
 public class PatientController {
-	private PatientService patientService;
+	private final PatientService patientService;
 	
+	public PatientController(PatientService patientService) {
+		this.patientService = patientService;
+	}
 	@PostMapping
 	public ResponseEntity<PatientResponseDTO> createPatient(@RequestBody @Valid PatientCreationDTO patientDTO){
 		PatientResponseDTO patientResponse = patientService.createPatient(patientDTO);
@@ -32,10 +37,22 @@ public class PatientController {
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 	
-	@PutMapping("/{id}")
-	public ResponseEntity<String> updatePatient(@PathVariable("id") Long patientId, PatientCreationDTO patientDTO){
-		
-		return null;
+	@GetMapping("/{id}/form")
+	public ResponseEntity<PatientUpdateFormDTO> getPatientUpdateInformation(@PathVariable Long id){
+		var response = patientService.getUpdateFormFromPatient(id);
+		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 	
+	@PutMapping("/{id}")
+	public ResponseEntity<PatientResponseDTO> updatePatient(@PathVariable("id") Long patientId, @RequestBody @Valid PatientCreationDTO patientDTO){
+		patientService.updatePatient(patientId, patientDTO);
+		PatientResponseDTO updateResponse = patientService.getPatient(patientId);
+		return ResponseEntity.ok(updateResponse);
+	}
+	
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> deletePatient(@PathVariable("id") Long patientId){
+		patientService.deletePatient(patientId);
+		return ResponseEntity.noContent().build();
+	}
 }

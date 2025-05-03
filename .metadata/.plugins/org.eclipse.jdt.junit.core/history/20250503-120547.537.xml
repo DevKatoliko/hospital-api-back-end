@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="PatientServiceTest " project="hospital-api-backend" tests="3" started="3" failures="0" errors="0" ignored="0">
+  <testsuite name="serviceTests.PatientServiceTest" time="1.171" displayname="PatientServiceTest" uniqueid="[engine:junit-jupiter]/[class:serviceTests.PatientServiceTest]">
+    <testcase name="updatePatientTest" classname="serviceTests.PatientServiceTest" time="1.153" displayname="Deve atualizar a profissão do paciente" uniqueid="[engine:junit-jupiter]/[class:serviceTests.PatientServiceTest]/[method:updatePatientTest()]"/>
+    <testcase name="getPatientTest" classname="serviceTests.PatientServiceTest" time="0.009" displayname="Deve recuperar entidade do banco de dados e retornar um DTO com dados válidos" uniqueid="[engine:junit-jupiter]/[class:serviceTests.PatientServiceTest]/[method:getPatientTest()]"/>
+    <testcase name="createPatientTest" classname="serviceTests.PatientServiceTest" time="0.006" displayname="Deve criar paciente com dados válidos" uniqueid="[engine:junit-jupiter]/[class:serviceTests.PatientServiceTest]/[method:createPatientTest()]"/>
+  </testsuite>
+</testrun>

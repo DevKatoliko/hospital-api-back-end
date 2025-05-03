@@ -1,0 +1,13 @@
+package dtos.updates.responses;
+
+import model.entities.Patient;
+
+public record PatientUpdateResponseDTO(
+		String profession, 
+		String mothersName) {
+	public static PatientUpdateResponseDTO fromPatient(Patient p) {
+		return new PatientUpdateResponseDTO(
+				p.getProfession(),
+				p.getMothersName());
+	}
+}

@@ -1,0 +1,33 @@
+package dtos.updates.responses;
+
+import java.time.LocalDate;
+
+import dtos.responses.AddressResponseDTO;
+import model.entities.Hospital;
+import model.entities.Patient;
+import model.enums.Gender;
+import model.enums.NationalityType;
+
+public record PersonUpdateResponseDTO(
+		 String name,
+		 String lastName,
+		 Gender gender,
+		 LocalDate birthDate,
+		 String telephoneNumber,
+		 String cellphoneNumber,
+		 String email,
+		 NationalityType nationality, 
+		 Hospital hospital, 
+		 String profession, 
+		 String mothersName) {
+public static PersonUpdateResponseDTO fromPatient(Patient patient) {
+	return new PersonUpdateResponseDTO(patient.getName(),
+			patient.getLastName(),
+			patient.getGender(),
+			patient.getBirthDate(),
+			patient.getTelephoneNumber(),
+			patient.getCellphoneNumber(),
+			patient.getEmail(), 
+			patient., null, null, null, null)
+}
+}

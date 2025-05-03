@@ -1,25 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="java.nio.file.AccessDeniedException"/>
-    <fullyQualifiedTypeName name="org.springframework.security.access.AccessDeniedException"/>
-    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PostMapping"/>
-    <fullyQualifiedTypeName name="repositories.GeneralRepository"/>
-    <fullyQualifiedTypeName name="org.springframework.data.jpa.repository.JpaRepository"/>
-    <fullyQualifiedTypeName name="org.springframework.data.repository.NoRepositoryBean"/>
-    <fullyQualifiedTypeName name="dtos.responses.UserResponseDTO"/>
-    <fullyQualifiedTypeName name="java.lang.Throwable"/>
-    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.ExceptionHandler"/>
-    <fullyQualifiedTypeName name="com.google.firebase.auth.UserRecord.UpdateRequest"/>
-    <fullyQualifiedTypeName name="jakarta.validation.constraints.NotBlank"/>
-    <fullyQualifiedTypeName name="jakarta.validation.constraints.Pattern"/>
-    <fullyQualifiedTypeName name="java.util.Optional"/>
-    <fullyQualifiedTypeName name="java.lang.IllegalArgumentException"/>
-    <fullyQualifiedTypeName name="com.google.rpc.context.AttributeContext.Auth"/>
-    <fullyQualifiedTypeName name="org.springframework.security.access.prepost.PreAuthorize"/>
     <fullyQualifiedTypeName name="com.google.firebase.auth.FirebaseAuthException"/>
     <fullyQualifiedTypeName name="org.junit.jupiter.api.extension.ExtendWith"/>
     <fullyQualifiedTypeName name="org.mockito.Mockito"/>
-    <fullyQualifiedTypeName name="org.mockito.junit.jupiter.MockitoExtension"/>
     <fullyQualifiedTypeName name="java.net.Authenticator"/>
     <fullyQualifiedTypeName name="org.springframework.security.core.context.SecurityContext"/>
     <fullyQualifiedTypeName name="java.lang.SuppressWarnings"/>
@@ -50,9 +33,7 @@
     <fullyQualifiedTypeName name="org.apache.commons.logging.Log"/>
     <fullyQualifiedTypeName name="jakarta.transaction.Transactional"/>
     <fullyQualifiedTypeName name="repositories.HospitalRepository"/>
-    <fullyQualifiedTypeName name="model.entities.Address"/>
     <fullyQualifiedTypeName name="org.springframework.http.HttpStatusCode"/>
-    <fullyQualifiedTypeName name="exceptions.HospitalNotFoundException"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestMapping"/>
     <fullyQualifiedTypeName name="org.springframework.http.HttpStatus"/>
     <fullyQualifiedTypeName name="dtos.responses.PatientResponseDTO"/>
@@ -60,4 +41,23 @@
     <fullyQualifiedTypeName name="java.lang.RuntimeException"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestBody"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestParam"/>
+    <fullyQualifiedTypeName name="exceptions.HospitalNotFoundException"/>
+    <fullyQualifiedTypeName name="org.mockito.junit.jupiter.MockitoExtension"/>
+    <fullyQualifiedTypeName name="model.enums.Gender"/>
+    <fullyQualifiedTypeName name="model.enums.NationalityType"/>
+    <fullyQualifiedTypeName name="java.math.BigDecimal"/>
+    <fullyQualifiedTypeName name="org.junit.jupiter.api.Test"/>
+    <fullyQualifiedTypeName name="model.entities.Address"/>
+    <fullyQualifiedTypeName name="java.util.Optional"/>
+    <fullyQualifiedTypeName name="dtos.creations.AddressCreationDTO"/>
+    <fullyQualifiedTypeName name="org.springframework.test.util.ReflectionTestUtils"/>
+    <fullyQualifiedTypeName name="jakarta.validation.constraints.NotEmpty"/>
+    <fullyQualifiedTypeName name="com.google.firebase.database.annotations.NotNull"/>
+    <fullyQualifiedTypeName name="java.time.LocalDate"/>
+    <fullyQualifiedTypeName name="jakarta.validation.constraints.NotBlank"/>
+    <fullyQualifiedTypeName name="jakarta.validation.constraints.Email"/>
+    <fullyQualifiedTypeName name="dtos.updates.responses.PatientUpdateResponseDTO"/>
+    <fullyQualifiedTypeName name="exceptions.PersonNotFoundException"/>
+    <fullyQualifiedTypeName name="dtos.responses.AddressResponseDTO"/>
+    <fullyQualifiedTypeName name="dtos.updates.responses.PersonUpdateResponseDTO"/>
 </qualifiedTypeNameHistroy>

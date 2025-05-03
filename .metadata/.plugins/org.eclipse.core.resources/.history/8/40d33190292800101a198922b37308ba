@@ -1,0 +1,19 @@
+package dtos.updates.responses;
+
+import dtos.responses.AddressResponseDTO;
+import model.entities.Patient;
+
+public record PatientUpdateFormDTO(
+		PersonUpdateResponseDTO personUpdateResponseDTO, 
+		AddressResponseDTO address,
+		String profession, 
+		String mothersName) {
+	public static PatientUpdateFormDTO fromPatient(Patient p) {
+		return new PatientUpdateFormDTO(
+				PersonUpdateResponseDTO.fromPerson(p),
+				AddressResponseDTO.fromAddress(p.getAddress()),
+				p.getProfession(),
+				p.getMothersName()
+				);
+	}
+}

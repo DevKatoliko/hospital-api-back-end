@@ -1,0 +1,141 @@
+package serviceTests;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.lenient;
+import static org.mockito.Mockito.when;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.Optional;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.test.util.ReflectionTestUtils;
+
+import dtos.creations.AddressCreationDTO;
+import dtos.creations.PatientCreationDTO;
+import dtos.creations.PersonCreationDTO;
+import dtos.responses.PatientResponseDTO;
+import model.entities.Address;
+import model.entities.Hospital;
+import model.entities.Patient;
+import model.enums.Gender;
+import model.enums.NationalityType;
+import repositories.HospitalRepository;
+import repositories.PatientRepository;
+import services.PatientService;
+
+@ExtendWith(MockitoExtension.class)
+public class PatientServiceTest {
+	@Mock
+	private PatientRepository patientRepository;
+	@Mock
+	private HospitalRepository hospitalRepository;
+	@InjectMocks
+	private PatientService patientService;
+	
+	private PatientCreationDTO patientDTO;
+	
+	private Hospital hospital;
+	@BeforeEach
+	void setUp(){
+		setUpMockPatientCreationDTO();
+		
+		hospital = setUpMockHospital();
+		lenient().when(hospitalRepository.findById(1L)).thenReturn(Optional.of(hospital));
+		
+		Patient patient = mockPatientDTOToMockEntity(patientDTO);
+		lenient().when(patientRepository.findById(1L)).thenReturn(Optional.of(patient));
+		
+	}
+	
+	@Test
+	void createPatientTest() {
+		PatientResponseDTO response = patientService.createPatient(patientDTO);
+		assertEquals("Adam", response.name());
+		assertEquals("Zuppi", response.lastName());
+		assertEquals("MALE", response.gender().toString());
+		assertEquals("MockHospital", response.hospitalName());
+		assertEquals(1l, response.hospitalId());
+	}
+	
+	@Test
+	void getPatientTest() {
+		PatientResponseDTO response = patientService.getPatient(1L);
+		assertEquals("Adam", response.name());
+		assertEquals("Zuppi", response.lastName());
+		assertEquals("MALE", response.gender().toString());
+		assertEquals("MockHospital", response.hospitalName());
+		assertEquals(1l, response.hospitalId());
+	}
+	
+	Patient mockPatientDTOToMockEntity(PatientCreationDTO patientDTO) {
+		var personDTO = patientDTO.personDTO();
+	Address address = Address.convertFromDTO(personDTO.addressDTO());
+		
+		var patient = new Patient(
+				personDTO.name(),
+				personDTO.lastName(),
+				personDTO.gender(),
+				personDTO.cpf(),
+				personDTO.birthDate(),
+				personDTO.telephoneNumber(),
+				personDTO.cellphoneNumber(),
+				personDTO.email(),
+				address,
+				personDTO.nationality(),
+				hospital,
+				patientDTO.profession(),
+				patientDTO.mothersName());
+	ReflectionTestUtils.setField(patient,"id",1L);
+		return patient;
+	}
+	
+	void setUpMockPatientCreationDTO() {
+		var addressDTO = setUpMockAddressCreationDTO();
+		var personDTO = new PersonCreationDTO(
+				"Adam",
+				"Zuppi",
+				Gender.MALE,
+				"111.111.111-11",
+				LocalDate.of(1995, 10, 20),
+				"(11)30559988",
+				"(11)99887799",
+				"adam@email.com",
+				addressDTO,
+				NationalityType.BRAZILIAN,
+				1L);
+		patientDTO = new PatientCreationDTO(personDTO,"Teacher","Barbara");
+	}
+	
+	AddressCreationDTO setUpMockAddressCreationDTO() {
+		var addressDTO = new AddressCreationDTO(
+				"MockCity",
+				"MockState",
+				"MockStreet",
+				"MockNeighbor",
+				"MockNumber",
+				"MockZip",
+				"MockComplement");
+		return addressDTO;
+	}
+	
+	Hospital setUpMockHospital() {
+		var addressDTO = setUpMockAddressCreationDTO();
+		var address = Address.convertFromDTO(addressDTO);
+		
+		var mockHospital = new Hospital("MockHospital",
+				address,
+				"(11)32223332", 
+				BigDecimal.valueOf(200),
+				BigDecimal.valueOf(350),
+				BigDecimal.valueOf(20000));
+		ReflectionTestUtils.setField(mockHospital, "id", 1L);
+		
+		return mockHospital;
+	}
+}

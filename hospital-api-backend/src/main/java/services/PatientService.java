@@ -4,8 +4,9 @@ import org.springframework.stereotype.Service;
 
 import dtos.creations.PatientCreationDTO;
 import dtos.responses.PatientResponseDTO;
+import dtos.updates.responses.PatientUpdateFormDTO;
+import exceptions.HospitalNotFoundException;
 import exceptions.PersonNotFoundException;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import model.entities.Address;
 import model.entities.Hospital;
@@ -25,28 +26,29 @@ public class PatientService {
 	
 	@Transactional
 	public PatientResponseDTO createPatient(PatientCreationDTO patientDTO) {
-		Patient patient = patientCreationDTOToPatientEntity(patientDTO);
-		var patientResponseDTO = PatientResponseDTO.fromPatient(patient);
+		Patient patient = patientDTOToEntity(patientDTO);
 		patientRepository.save(patient);
-		return patientResponseDTO;
+		return PatientResponseDTO.fromPatient(patient);
 	}
 	
-	private Patient patientCreationDTOToPatientEntity(PatientCreationDTO patientDTO) {
-		Hospital hospital = hospitalRepository.getReferenceById(patientDTO.personDTO().hospitalId());
-		Hospital.verifyHospital(hospital);
-		Address address = Address.convertFromDTO(patientDTO.personDTO().addressDTO());
+	private Patient patientDTOToEntity(PatientCreationDTO patientDTO) {
+		var personDTO = patientDTO.personDTO();
+		Hospital hospital = hospitalRepository.findById(personDTO.hospitalId())
+				.orElseThrow(()-> new HospitalNotFoundException("Hospital não encontrado!"));
+
+		Address address = Address.convertFromDTO(personDTO.addressDTO());
 		
 		var patient = new Patient(
-				patientDTO.personDTO().name(),
-				patientDTO.personDTO().lastName(),
-				patientDTO.personDTO().gender(),
-				patientDTO.personDTO().cpf(),
-				patientDTO.personDTO().birthDate(),
-				patientDTO.personDTO().telephoneNumber(),
-				patientDTO.personDTO().cellphoneNumber(),
-				patientDTO.personDTO().email(),
+				personDTO.name(),
+				personDTO.lastName(),
+				personDTO.gender(),
+				personDTO.cpf(),
+				personDTO.birthDate(),
+				personDTO.telephoneNumber(),
+				personDTO.cellphoneNumber(),
+				personDTO.email(),
 				address,
-				patientDTO.personDTO().nationality(),
+				personDTO.nationality(),
 				hospital,
 				patientDTO.profession(),
 				patientDTO.mothersName());
@@ -55,30 +57,41 @@ public class PatientService {
 	}
 	@Transactional
 	public PatientResponseDTO getPatient(Long id) {
-		var patient = patientRepository.getReferenceById(id);
-		verifyPatient(patient);
+		var patient = patientRepository.findById(id)
+				.orElseThrow(()-> new PersonNotFoundException("Paciente com id " + id +" não encontrado!"));
 		return PatientResponseDTO.fromPatient(patient);
 	}
 	
 	@Transactional
-	public void updatePatient(Long patientId, PatientCreationDTO patientUpdate) {
-		var patient = patientRepository.getReferenceById(patientId);
-		verifyPatient(patient);
+	public PatientUpdateFormDTO getUpdateFormFromPatient(Long id) {
+		var patient = patientRepository.findById(id)
+			.orElseThrow(()-> new PersonNotFoundException("Paciente com id " + id +" não encontrado!"));
 		
-		Hospital hospital = hospitalRepository.getReferenceById(patientUpdate.personDTO().hospitalId());
-		Hospital.verifyHospital(hospital);
+		return PatientUpdateFormDTO.fromPatient(patient);
+	}
+	
+	
+	@Transactional
+	public void updatePatient(Long id, PatientCreationDTO patientUpdate) {
+		var patient = patientRepository.findById(id)
+				.orElseThrow(()-> new PersonNotFoundException("Paciente não encontrado!"));
 		
-		Address address = Address.convertFromDTO(patientUpdate.personDTO().addressDTO());
+		var personDTO = patientUpdate.personDTO();
+		Hospital hospital = hospitalRepository.findById(personDTO.hospitalId())
+				.orElseThrow(()-> new HospitalNotFoundException("Hospital não encontrado!"));
 		
-		patient.setName(patientUpdate.personDTO().name());
-		patient.setLastName(patientUpdate.personDTO().lastName());
-		patient.setGender(patientUpdate.personDTO().gender());
-		patient.setBirthDate(patientUpdate.personDTO().birthDate());
-		patient.setCellphoneNumber(patientUpdate.personDTO().cellphoneNumber());
-		patient.setCpf(patientUpdate.personDTO().cpf());
-		patient.setEmail(patientUpdate.personDTO().email());
-		patient.setTelephoneNumber(patientUpdate.personDTO().telephoneNumber());
-		patient.setNationality(patientUpdate.personDTO().nationality());
+		
+		Address address = Address.convertFromDTO(personDTO.addressDTO());
+		
+		patient.setName(personDTO.name());
+		patient.setLastName(personDTO.lastName());
+		patient.setGender(personDTO.gender());
+		patient.setBirthDate(personDTO.birthDate());
+		patient.setCellphoneNumber(personDTO.cellphoneNumber());
+		patient.setCpf(personDTO.cpf());
+		patient.setEmail(personDTO.email());
+		patient.setTelephoneNumber(personDTO.telephoneNumber());
+		patient.setNationality(personDTO.nationality());
 		patient.setProfession(patientUpdate.profession());
 		patient.setMothersName(patientUpdate.mothersName());
 		patient.setHospital(hospital);
@@ -87,11 +100,11 @@ public class PatientService {
 		patientRepository.save(patient);
 	}
 	
-	private void verifyPatient(Patient patient) {
-		try {
-			patient.getId();
-		}catch(EntityNotFoundException ex) {
-			throw new PersonNotFoundException("Paciente não encontrado!", ex.getCause());
-		}
+	@Transactional
+	public void deletePatient(Long id) {
+		var patient = patientRepository.findById(id)
+				.orElseThrow(()-> new PersonNotFoundException("Paciente não encontrado!"));
+		patientRepository.delete(patient);
 	}
+
 }

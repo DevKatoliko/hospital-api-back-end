@@ -4,6 +4,9 @@
 	<section name="java.lang.Class">
 		<item key="replaceBarOpen" value="true"/>
 		<list key="findhistory">
+			<item value="patient"/>
+			<item value="hospital"/>
+			<item value="patientDTO"/>
 			<item value="patientCreationDTOToPatientEntity"/>
 			<item value="pass"/>
 			<item value="fromDTOToEntity"/>
@@ -16,11 +19,12 @@
 			<item value="consultType"/>
 			<item value="examsDate"/>
 			<item value="hospitalTotalCash"/>
-			<item value="List"/>
-			<item value="Speciallty"/>
-			<item value="payed"/>
 		</list>
 		<list key="replacehistory">
+			<item value="person"/>
+			<item value="mockHospital"/>
+			<item value="mockPatientDTO"/>
+			<item value="patientDTOToEntity"/>
 			<item value="buildUserFromDTO"/>
 			<item value="userPatient"/>
 			<item value="dto"/>
@@ -32,10 +36,6 @@
 			<item value="examDate"/>
 			<item value="hospitalCash"/>
 			<item value="Set"/>
-			<item value="Specialty"/>
-			<item value="specialty"/>
-			<item value="paid"/>
-			<item value="neighborhood"/>
 		</list>
 	</section>
 </section>

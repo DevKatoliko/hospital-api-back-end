@@ -1,0 +1,8 @@
+package dtos.updates.responses;
+
+public record PatientUpdateResponse(
+		PersonUpdateResponseDTO personUpdateResponseDTO,
+		String profession, 
+		String mothersName) {
+	public static PersonUpdateResponseDTO fromPatient() {}
+}

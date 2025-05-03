@@ -1,0 +1,93 @@
+package serviceTests;
+
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.lenient;
+
+import java.util.Optional;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import dtos.creations.PatientCreationDTO;
+import dtos.responses.PatientResponseDTO;
+import model.entities.Hospital;
+import model.entities.Patient;
+import repositories.HospitalRepository;
+import repositories.PatientRepository;
+import serviceTests.serviceUtility.TestUtil;
+import services.PatientService;
+
+@ExtendWith(MockitoExtension.class)
+public class PatientServiceTest {
+	@Mock
+	private PatientRepository patientRepository;
+	@Mock
+	private HospitalRepository hospitalRepository;
+	@InjectMocks
+	private PatientService patientService;
+	
+	private PatientCreationDTO mockPatientDTO;
+	
+	private Hospital mockHospital;
+	
+	
+	private TestUtil util =  new TestUtil();
+	
+	@BeforeEach
+	void setUp(){
+		mockPatientDTO = util.setUpMockPatientCreationDTO();
+		
+		mockHospital = util.setUpMockHospital();
+		lenient().when(hospitalRepository.findById(1L)).thenReturn(Optional.of(mockHospital));
+		
+		Patient patient = util.convertMockPatientDTOToMockEntity(mockPatientDTO);
+		lenient().when(patientRepository.findById(1L)).thenReturn(Optional.of(patient));
+		
+	}
+	
+	@DisplayName("Must create a new patient with valid data and return a response DTO with the persisted data")
+	@Test
+	void createPatientTest() {
+		PatientResponseDTO response = patientService.createPatient(mockPatientDTO);
+		assertAll(
+				() -> assertEquals("Adam", response.name(),"Name falied"),
+				() -> assertEquals("Zuppi", response.lastName(),"Last name failed"),
+				() -> assertEquals("MALE", response.gender().toString(),"Gender failed"),
+				() -> assertEquals("Teacher", response.profession(), "Profession failed"),
+				() -> assertEquals("Barbara", response.mothersName(), "Mother's name failed"),
+				() -> assertEquals("adam@email.com", response.email(), "Email failed"),
+				() -> assertEquals(1l, response.hospitalId(), "Hospital id failed")
+				);
+	}
+	
+	@DisplayName("Must return a response DTO with the patient persisted data")
+	@Test
+	void getPatientTest() {
+		PatientResponseDTO response = patientService.getPatient(1L);
+		assertAll(
+				() -> assertEquals("Adam", response.name(),"Name falied"),
+				() -> assertEquals("Zuppi", response.lastName(),"Last name failed"),
+				() -> assertEquals("MALE", response.gender().toString(),"Gender failed"),
+				() -> assertEquals("Teacher", response.profession(), "Profession failed"),
+				() -> assertEquals("Barbara", response.mothersName(), "Mother's name failed"),
+				() -> assertEquals("adam@email.com", response.email(), "Email failed"),
+				() -> assertEquals(1l, response.hospitalId(), "Hospital id failed")
+				);
+	}
+	
+	@DisplayName("Must update the patient profession")
+	@Test
+	void updatePatientTest() {
+		var updatedMockPatientCreationDTO = util.setUpMockPatientUpdate();
+		patientService.updatePatient(1L, updatedMockPatientCreationDTO);
+		PatientResponseDTO response  = patientService.getPatient(1L);
+		assertEquals("Motorista", response.profession(), "Update failed");
+	}
+	
+}

@@ -7,10 +7,8 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import exceptions.HospitalNotFoundException;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -128,13 +126,6 @@ public class Hospital implements Serializable{
 		this.hospitalCash.add(Objects.requireNonNull(hospitalCash, NULL_ERROR_HOSPITAL_CASH));
 	}
 	
-	public static void verifyHospital(Hospital hospital) {
-		try {
-			hospital.getId();
-		}catch(EntityNotFoundException ex) {
-			throw new HospitalNotFoundException("Hospital não encontrado!");
-		}
-	}
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);

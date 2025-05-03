@@ -1,0 +1,5 @@
+package dtos.updates.responses;
+
+public record PatientUpdateResponse() {
+
+}

@@ -1,0 +1,101 @@
+package serviceTests.serviceUtility;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
+import org.springframework.test.util.ReflectionTestUtils;
+
+import dtos.creations.AddressCreationDTO;
+import dtos.creations.PatientCreationDTO;
+import dtos.creations.PersonCreationDTO;
+import model.entities.Address;
+import model.entities.Hospital;
+import model.entities.Patient;
+import model.enums.Gender;
+import model.enums.NationalityType;
+
+
+public class TestUtil {
+	
+	public PersonCreationDTO setUpMockPersonCreationDTO() {
+		var addressDTO = setUpMockAddressCreationDTO();
+		return new PersonCreationDTO(
+				"Adam",
+				"Zuppi",
+				Gender.MALE,
+				"111.111.111-11",
+				LocalDate.of(1995, 10, 20),
+				"(11)30559988",
+				"(11)99887799",
+				"adam@email.com",
+				addressDTO,
+				NationalityType.BRAZILIAN,
+				1L);
+	}
+	
+	public PatientCreationDTO setUpMockPatientCreationDTO() {
+		var personDTO = setUpMockPersonCreationDTO();
+		var patientDTO = new PatientCreationDTO(personDTO,"Teacher","Barbara");
+		return patientDTO;
+	}
+	
+	public AddressCreationDTO setUpMockAddressCreationDTO() {
+		var addressDTO = new AddressCreationDTO(
+				"MockCity",
+				"MockState",
+				"MockStreet",
+				"MockNeighbor",
+				"MockNumber",
+				"MockZip",
+				"MockComplement");
+		return addressDTO;
+	}
+	
+	public Hospital setUpMockHospital() {
+		var addressDTO = setUpMockAddressCreationDTO();
+		var address = Address.convertFromDTO(addressDTO);
+		
+		var mockHospital = new Hospital("MockHospital",
+				address,
+				"(11)32223332", 
+				BigDecimal.valueOf(200),
+				BigDecimal.valueOf(350),
+				BigDecimal.valueOf(20000));
+		ReflectionTestUtils.setField(mockHospital, "id", 1L);
+		
+		return mockHospital;
+	}
+	
+	public PatientCreationDTO setUpMockPatientUpdate() {
+		var mockPatientCreationDTO = setUpMockPatientCreationDTO();
+		var mockPersonCreationDTO = setUpMockPersonCreationDTO();
+		return new PatientCreationDTO(mockPersonCreationDTO,"Driver",mockPatientCreationDTO.mothersName());
+	}
+	
+	public Patient convertMockPatientDTOToMockEntity(PatientCreationDTO patientDTO) {
+		Hospital mockHospital = setUpMockHospital();
+		var personDTO = patientDTO.personDTO();
+	Address address = Address.convertFromDTO(personDTO.addressDTO());
+		
+		var patient = new Patient(
+				personDTO.name(),
+				personDTO.lastName(),
+				personDTO.gender(),
+				personDTO.cpf(),
+				personDTO.birthDate(),
+				personDTO.telephoneNumber(),
+				personDTO.cellphoneNumber(),
+				personDTO.email(),
+				address,
+				personDTO.nationality(),
+				mockHospital,
+				patientDTO.profession(),
+				patientDTO.mothersName());
+	ReflectionTestUtils.setField(patient,"id",1L);
+		return patient;
+	}
+	
+	
+	
+	
+}

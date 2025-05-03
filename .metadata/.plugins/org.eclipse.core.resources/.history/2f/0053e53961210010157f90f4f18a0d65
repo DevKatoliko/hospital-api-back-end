@@ -1,7 +1,0 @@
-package repositories;
-
-import model.entities.Doctor;
-
-public interface DoctorRepository extends GeneralRepository<Doctor, Long> {
-
-}
