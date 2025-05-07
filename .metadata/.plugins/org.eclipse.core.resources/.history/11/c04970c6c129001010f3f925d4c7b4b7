@@ -1,0 +1,23 @@
+package auditing;
+
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import jakarta.servlet.http.HttpServletRequest;
+import services.AuditLoggerService;
+
+@Aspect
+@Component
+public class AuditAspect {
+	
+	@Autowired
+	private AuditLoggerService auditLogger;
+	
+	@Autowired
+	private HttpServletRequest request;
+	
+	@Before("@annotation(annotation.audit.LogAudit.java)")
+	public void loggerMethod() {}
+}

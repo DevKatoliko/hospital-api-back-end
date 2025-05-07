@@ -1,0 +1,5 @@
+package auditing;
+
+public class AuditAspect {
+
+}

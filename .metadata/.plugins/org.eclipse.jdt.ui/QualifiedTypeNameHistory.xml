@@ -1,19 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="com.google.firebase.auth.FirebaseAuthException"/>
-    <fullyQualifiedTypeName name="org.junit.jupiter.api.extension.ExtendWith"/>
-    <fullyQualifiedTypeName name="org.mockito.Mockito"/>
-    <fullyQualifiedTypeName name="java.net.Authenticator"/>
-    <fullyQualifiedTypeName name="org.springframework.security.core.context.SecurityContext"/>
-    <fullyQualifiedTypeName name="java.lang.SuppressWarnings"/>
-    <fullyQualifiedTypeName name="java.lang.String"/>
-    <fullyQualifiedTypeName name="model.entities.User"/>
-    <fullyQualifiedTypeName name="com.google.firebase.auth.FirebaseAuth"/>
-    <fullyQualifiedTypeName name="org.springframework.security.core.context.SecurityContextHolder"/>
-    <fullyQualifiedTypeName name="java.util.stream.Collector"/>
-    <fullyQualifiedTypeName name="java.util.stream.Collectors"/>
-    <fullyQualifiedTypeName name="org.springframework.security.core.userdetails.UsernameNotFoundException"/>
-    <fullyQualifiedTypeName name="com.google.api.Authentication"/>
     <fullyQualifiedTypeName name="com.google.firebase.auth.UserRecord.CreateRequest"/>
     <fullyQualifiedTypeName name="com.google.rpc.PreconditionFailure.Violation"/>
     <fullyQualifiedTypeName name="jakarta.validation.ConstraintValidatorFactory"/>
@@ -22,14 +8,11 @@
     <fullyQualifiedTypeName name="jakarta.validation.Validation"/>
     <fullyQualifiedTypeName name="jakarta.validation.Validator"/>
     <fullyQualifiedTypeName name="java.util.Set"/>
-    <fullyQualifiedTypeName name="model.enums.RoleType"/>
     <fullyQualifiedTypeName name="org.springframework.security.core.GrantedAuthority"/>
     <fullyQualifiedTypeName name="org.springframework.security.jackson2.SimpleGrantedAuthorityMixin"/>
-    <fullyQualifiedTypeName name="org.springframework.security.core.Authentication"/>
     <fullyQualifiedTypeName name="org.springframework.security.core.authority.SimpleGrantedAuthority"/>
     <fullyQualifiedTypeName name="java.util.Collection"/>
     <fullyQualifiedTypeName name="java.util.Collections"/>
-    <fullyQualifiedTypeName name="java.util.List"/>
     <fullyQualifiedTypeName name="org.apache.commons.logging.Log"/>
     <fullyQualifiedTypeName name="jakarta.transaction.Transactional"/>
     <fullyQualifiedTypeName name="repositories.HospitalRepository"/>
@@ -48,7 +31,6 @@
     <fullyQualifiedTypeName name="java.math.BigDecimal"/>
     <fullyQualifiedTypeName name="org.junit.jupiter.api.Test"/>
     <fullyQualifiedTypeName name="model.entities.Address"/>
-    <fullyQualifiedTypeName name="java.util.Optional"/>
     <fullyQualifiedTypeName name="dtos.creations.AddressCreationDTO"/>
     <fullyQualifiedTypeName name="org.springframework.test.util.ReflectionTestUtils"/>
     <fullyQualifiedTypeName name="jakarta.validation.constraints.NotEmpty"/>
@@ -57,7 +39,25 @@
     <fullyQualifiedTypeName name="jakarta.validation.constraints.NotBlank"/>
     <fullyQualifiedTypeName name="jakarta.validation.constraints.Email"/>
     <fullyQualifiedTypeName name="dtos.updates.responses.PatientUpdateResponseDTO"/>
-    <fullyQualifiedTypeName name="exceptions.PersonNotFoundException"/>
-    <fullyQualifiedTypeName name="dtos.responses.AddressResponseDTO"/>
     <fullyQualifiedTypeName name="dtos.updates.responses.PersonUpdateResponseDTO"/>
+    <fullyQualifiedTypeName name="dtos.responses.AddressResponseDTO"/>
+    <fullyQualifiedTypeName name="org.junit.jupiter.api.DisplayName"/>
+    <fullyQualifiedTypeName name="repositories.PatientRepository"/>
+    <fullyQualifiedTypeName name="exceptions.PersonNotFoundException"/>
+    <fullyQualifiedTypeName name="java.lang.annotation.Target"/>
+    <fullyQualifiedTypeName name="java.lang.annotation.ElementType"/>
+    <fullyQualifiedTypeName name="org.springframework.security.core.context.SecurityContextHolder"/>
+    <fullyQualifiedTypeName name="java.lang.reflect.Method"/>
+    <fullyQualifiedTypeName name="java.util.Map"/>
+    <fullyQualifiedTypeName name="org.springframework.security.access.prepost.PreAuthorize"/>
+    <fullyQualifiedTypeName name="com.google.firebase.auth.FirebaseAuthException"/>
+    <fullyQualifiedTypeName name="model.enums.RoleType"/>
+    <fullyQualifiedTypeName name="java.util.Optional"/>
+    <fullyQualifiedTypeName name="model.entities.Doctor"/>
+    <fullyQualifiedTypeName name="dtos.creations.DoctorCreationDTO"/>
+    <fullyQualifiedTypeName name="dtos.creations.UserCreationDTO"/>
+    <fullyQualifiedTypeName name="testSecurityConfig.TestSecurityConfiguration"/>
+    <fullyQualifiedTypeName name="org.springframework.security.core.Authentication"/>
+    <fullyQualifiedTypeName name="com.mysql.cj.protocol.AuthenticationProvider"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
 </qualifiedTypeNameHistroy>

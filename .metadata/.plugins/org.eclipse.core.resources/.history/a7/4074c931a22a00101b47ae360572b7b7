@@ -1,0 +1,58 @@
+package testSecurityConfig;
+
+import static org.springframework.security.config.Customizer.withDefaults;
+
+import java.util.List;
+
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.web.SecurityFilterChain;
+
+import com.mysql.cj.conf.PropertySet;
+import com.mysql.cj.exceptions.ExceptionInterceptor;
+import com.mysql.cj.protocol.AuthenticationProvider;
+import com.mysql.cj.protocol.Protocol;
+@TestConfiguration
+@EnableWebSecurity
+public class TestSecurityConfiguration {
+
+	@Bean
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+		http.
+		authorizeHttpRequests(auth -> auth.anyRequest().permitAll()).csrf(csrf -> csrf.disable()).httpBasic(withDefaults());
+		return http.build();
+	}
+	
+	  @Bean
+	    public AuthenticationProvider testAuthProvider() {
+	        return new AuthenticationProvider() {
+	            public Authentication authenticate(Authentication authentication) {
+	                // Simula autenticação
+	                return new UsernamePasswordAuthenticationToken(
+	                        "testUser", null,
+	                        List.of(new SimpleGrantedAuthority("ROLE_ADM")));
+	            }
+
+				@Override
+				public void init(Protocol prot, PropertySet propertySet, ExceptionInterceptor exceptionInterceptor) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void connect(String username, String password, String database) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void changeUser(String username, String password, String database) {
+					// TODO Auto-generated method stub
+					
+				}
+}

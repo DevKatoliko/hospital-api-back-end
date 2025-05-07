@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Size;
 
 public record UserCreationDTO(
 		@NotBlank(message = "Informe o nome de usuário!")
-		String userName, 
+		String login, 
 		@NotBlank(message = "Informe o seu e-mail!")
 		String email, 
 		@NotBlank(message = "Informe uma senha segura!!")

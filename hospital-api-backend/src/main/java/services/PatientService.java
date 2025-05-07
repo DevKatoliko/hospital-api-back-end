@@ -1,10 +1,14 @@
 package services;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
+import annotations.audit.LogAudit;
 import dtos.creations.PatientCreationDTO;
 import dtos.responses.PatientResponseDTO;
-import dtos.updates.responses.PatientUpdateFormDTO;
+import dtos.updates.forms.PatientUpdateFormDTO;
 import exceptions.HospitalNotFoundException;
 import exceptions.PersonNotFoundException;
 import jakarta.transaction.Transactional;
@@ -18,16 +22,19 @@ import repositories.PatientRepository;
 public class PatientService {
 	private final PatientRepository patientRepository;
 	private final HospitalRepository hospitalRepository;
-	
-	public PatientService(PatientRepository patientRepository, HospitalRepository hospitalRepository) {
+	private final UserService userService;
+	public PatientService(PatientRepository patientRepository, HospitalRepository hospitalRepository, UserService userService) {
 			this.patientRepository = patientRepository;
 			this.hospitalRepository = hospitalRepository;
+			this.userService = userService;
 	}
 	
 	@Transactional
+	@LogAudit(action ="PATIENT_CREATED")
 	public PatientResponseDTO createPatient(PatientCreationDTO patientDTO) {
 		Patient patient = patientDTOToEntity(patientDTO);
 		patientRepository.save(patient);
+		userService.setPersonInUser(patient);
 		return PatientResponseDTO.fromPatient(patient);
 	}
 	
@@ -56,6 +63,7 @@ public class PatientService {
 		return patient;
 	}
 	@Transactional
+	@LogAudit(action ="PATIENT_REQUESTED")
 	public PatientResponseDTO getPatient(Long id) {
 		var patient = patientRepository.findById(id)
 				.orElseThrow(()-> new PersonNotFoundException("Paciente com id " + id +" não encontrado!"));
@@ -70,9 +78,24 @@ public class PatientService {
 		return PatientUpdateFormDTO.fromPatient(patient);
 	}
 	
+	@Transactional
+	@LogAudit(action = "ALL_PATIENTS_REQUESTED")
+	public List<PatientResponseDTO> getAllPatients(){
+		List<Patient> patients = patientRepository.findAll();
+		return convertEntityListToResponseDTOList(patients);
+	}
+	
+	private  List<PatientResponseDTO> convertEntityListToResponseDTOList(List<Patient> patients){
+		var patientsResponseDTO = new ArrayList<PatientResponseDTO>();
+		patients.forEach(p -> {
+			patientsResponseDTO.add(PatientResponseDTO.fromPatient(p));
+			});
+		return patientsResponseDTO;
+	}
 	
 	@Transactional
-	public void updatePatient(Long id, PatientCreationDTO patientUpdate) {
+	@LogAudit(action ="PATIENT_UPDATED")
+	public PatientResponseDTO updatePatient(Long id, PatientCreationDTO patientUpdate) {
 		var patient = patientRepository.findById(id)
 				.orElseThrow(()-> new PersonNotFoundException("Paciente não encontrado!"));
 		
@@ -96,11 +119,12 @@ public class PatientService {
 		patient.setMothersName(patientUpdate.mothersName());
 		patient.setHospital(hospital);
 		patient.setAddress(address);
-		
 		patientRepository.save(patient);
+		return PatientResponseDTO.fromPatient(patient);
 	}
 	
 	@Transactional
+	@LogAudit(action ="PATIENT_DELETED")
 	public void deletePatient(Long id) {
 		var patient = patientRepository.findById(id)
 				.orElseThrow(()-> new PersonNotFoundException("Paciente não encontrado!"));

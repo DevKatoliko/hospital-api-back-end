@@ -16,7 +16,6 @@ import dtos.creations.UserCreationDTO;
 import dtos.responses.UserResponseDTO;
 import dtos.updates.UserPasswordUpdateDTO;
 import jakarta.validation.Valid;
-import model.entities.User;
 import services.UserService;
 
 @RestController
@@ -28,28 +27,30 @@ public class UserController {
 		this.userService = userService;
 	}
 	
-	private ResponseEntity<UserResponseDTO> userCreationResponseEntityBuilder(User user){
-		var resDTO = UserResponseDTO.fromUser(user);
-		return ResponseEntity.status(HttpStatus.CREATED).body(resDTO);
+	private ResponseEntity<UserResponseDTO> userCreationResponseEntityBuilder(UserResponseDTO response){
+		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
 	
 	@PostMapping("/patient")
 	public ResponseEntity<UserResponseDTO> registerUserPatient (@RequestBody @Valid UserCreationDTO userDTO) throws FirebaseAuthException{
-		User userPatient = userService.registerUserPatient(userDTO);
-		return userCreationResponseEntityBuilder(userPatient);
+		return userCreationResponseEntityBuilder(userService.registerUserPatient(userDTO));
 	}
 	
-	@PreAuthorize("hasAnyRole('ADM','DOCTOR')")
+	@PreAuthorize("hasAnyRole('HOSPITAL_ADM','DOCTOR')")
 	@PostMapping("/doctor")
 	public ResponseEntity<UserResponseDTO> registerUserDoctor(@RequestBody @Valid UserCreationDTO userDTO) throws FirebaseAuthException{
-		User userDoctor = userService.registerDoctor(userDTO);
-		return userCreationResponseEntityBuilder(userDoctor);
+		return userCreationResponseEntityBuilder(userService.registerUserDoctor(userDTO));
 	}
-	@PreAuthorize("hasRole('ADM')")
+	@PreAuthorize("hasRole('SYSTEM_ADM')")
 	@PostMapping("/adm")
-	public ResponseEntity<UserResponseDTO> registerUserAdministrator(@RequestBody @Valid UserCreationDTO userDTO)throws FirebaseAuthException{
-		User user = userService.registerAdministrator(userDTO);
-		return userCreationResponseEntityBuilder(user);
+	public ResponseEntity<UserResponseDTO> registerUserHospitalAdministrator(@RequestBody @Valid UserCreationDTO userDTO)throws FirebaseAuthException{
+		return userCreationResponseEntityBuilder(userService.registerUserAdministrator(userDTO));
+	}
+	
+	@PreAuthorize("hasAnyRole('NURSE', 'DOCTOR', 'HOSPITAL_ADM')")
+	@PostMapping("/nurse")
+	public ResponseEntity<UserResponseDTO> createUserNurse(@RequestBody @Valid UserCreationDTO userDTO) throws FirebaseAuthException{
+		return userCreationResponseEntityBuilder(userService.registerUserNurse(userDTO));
 	}
 	
 	@PreAuthorize("isAuthenticated()")

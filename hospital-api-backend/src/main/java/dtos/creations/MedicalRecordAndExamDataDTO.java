@@ -3,9 +3,9 @@ package dtos.creations;
 import java.time.LocalDate;
 import java.util.Set;
 
+import annotations.validation.PhysicalAndComplementaryExamValidation;
 import jakarta.validation.constraints.NotNull;
 import model.enums.ScheduleType;
-import validation.annotations.PhysicalAndComplementaryExamValidation;
 
 /*This DTO class will contain the basic information for creating a Medical record that will be created by a service class.
  * The final medical record DTO will contain the information for the creation of a prescription and the final diagnostic that will be

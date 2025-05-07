@@ -10,11 +10,13 @@ import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.UserRecord;
 import com.google.firebase.auth.UserRecord.UpdateRequest;
 
+import annotations.audit.LogAudit;
 import dtos.creations.UserCreationDTO;
 import dtos.responses.UserResponseDTO;
 import dtos.updates.UserPasswordUpdateDTO;
 import exceptions.EmailAlreadyRegisteredException;
 import jakarta.transaction.Transactional;
+import model.entities.Person;
 import model.entities.User;
 import model.enums.RoleType;
 import repositories.UserRepository;
@@ -23,50 +25,77 @@ public class UserService {
 	
 	private final UserRepository userRepository;
 	private final FirebaseAuth firebaseAuth;
-	public UserService(UserRepository userRepository, FirebaseAuth auth) {
+	private final RoleService roleService;
+	public UserService(UserRepository userRepository, FirebaseAuth auth,RoleService roleService) {
 		this.userRepository = userRepository;
 		this.firebaseAuth = auth;
+		this.roleService = roleService;
 	}
 	
 	@Transactional
+	@LogAudit(action = "USER_REGISTERED")
 	private User registerUser(UserCreationDTO userDTO, RoleType role) throws FirebaseAuthException{
 		
 		if(!isEmailAvailable(userDTO)) throw new EmailAlreadyRegisteredException("Esse email já foi cadastrado!"); 
 		UserRecord.CreateRequest request = new UserRecord.CreateRequest()
 				.setEmail(userDTO.email())
 				.setPassword(userDTO.password())
-				.setDisplayName(userDTO.userName());
+				.setDisplayName(userDTO.login());
 	
+		//Firebase user is created and saved in the firebase system
 		UserRecord userRecord = firebaseAuth.createUser(request);
+		
+		//Entity user is created and saved in database
 		User newUser = buildUserFromDTO(userDTO,userRecord.getUid(),role);
+		
 		return userRepository.save(newUser);
 		
 	}
-
+	
 	@Transactional
-	public User registerUserPatient(UserCreationDTO userDTO) throws FirebaseAuthException {
-		return registerUser(userDTO, RoleType.PATIENT);
+	@LogAudit(action = "SYSTEM_ADMINISTRATOR_CREATED")
+	public UserResponseDTO registerSystemAdministrator(UserCreationDTO userDTO) throws FirebaseAuthException {
+		var user = registerUser(userDTO, RoleType.SYSTEM_ADM);
+		roleService.giveRole(user.getUid(), user.getRole().toString());
+		return UserResponseDTO.fromUser(user);
 	}
 	
 	@Transactional
-	public User registerDoctor (UserCreationDTO userDTO) throws FirebaseAuthException {
+	public UserResponseDTO registerUserPatient(UserCreationDTO userDTO) throws FirebaseAuthException {
+		var user = registerUser(userDTO, RoleType.PATIENT);
+		roleService.giveRole(user.getUid(), user.getRole().toString());
+		return UserResponseDTO.fromUser(user);
+	}
+	
+	@Transactional
+	public UserResponseDTO registerUserNurse(UserCreationDTO userDTO) throws FirebaseAuthException {
+		var user = registerUser(userDTO, RoleType.NURSE);
+		roleService.giveRole(user.getUid(), user.getRole().toString());
+		return UserResponseDTO.fromUser(user);
+	}
+	
+	@Transactional
+	public UserResponseDTO registerUserDoctor (UserCreationDTO userDTO) throws FirebaseAuthException {
 		if(!isCurrentUserAdmin())
 			throw new AccessDeniedException("Você não tem  permissão para criar um médico!");
-		
-		return registerUser(userDTO, RoleType.DOCTOR);
+		var user = registerUser(userDTO, RoleType.DOCTOR);
+		roleService.giveRole(user.getUid(), user.getRole().toString());
+		return UserResponseDTO.fromUser(user);
 	
 	}
 	
 	@Transactional
-	public User registerAdministrator(UserCreationDTO userDTO) throws FirebaseAuthException {
+	public UserResponseDTO registerUserAdministrator(UserCreationDTO userDTO) throws FirebaseAuthException {
 		if(!isCurrentUserAdmin())
 			throw new AccessDeniedException("Você não tem  permissão para criar um administrador!");
-		
-		return registerUser(userDTO, RoleType.ADM);
+		var user = registerUser(userDTO, RoleType.HOSPITAL_ADM);
+		roleService.giveRole(user.getUid(), user.getRole().toString());
+		return UserResponseDTO.fromUser(user);
 		
 	}
 
-	
+	@Transactional
+	@LogAudit(action = "USER_REQUESTED")
 	public UserResponseDTO getAuthenticatedUser() {
 		String uid = SecurityContextHolder.getContext().getAuthentication().getName();
 		if(uid == null) throw new UsernameNotFoundException("Usuário não encontrado!");
@@ -80,7 +109,15 @@ public class UserService {
 		return user;
 	}
 	
+	@LogAudit(action = "PERSON_INSERTED")
+	public void setPersonInUser(Person person) {
+		String uid = SecurityContextHolder.getContext().getAuthentication().getName();
+		User user = userRepository.getUserByUid(uid).orElseThrow();
+		user.setPerson(person);
+		userRepository.save(user);
+	}
 	@Transactional
+	@LogAudit(action = "PASSWORD_CHANGED")
 	public void changePassword(UserPasswordUpdateDTO newPassword) throws FirebaseAuthException {
 		String validatedUid = SecurityContextHolder.getContext().getAuthentication().getName();
 		UpdateRequest request = new UpdateRequest(validatedUid).setPassword(newPassword.newPassword());
@@ -96,6 +133,7 @@ public class UserService {
 		
 	}
 	
+	@LogAudit(action = "USER_DELETED")
 	private void deleteUserInFirebase(String uid) throws FirebaseAuthException{
 		FirebaseAuth.getInstance().deleteUser(uid);
 	}
@@ -110,7 +148,7 @@ public class UserService {
 
 	
 	private User buildUserFromDTO(UserCreationDTO user,String uid, RoleType role) {
-		User entityUser = new User(uid,user.email(),user.userName(),role); 
+		User entityUser = new User(uid,user.email(),user.login(),role); 
 		return entityUser;
 	}
 	

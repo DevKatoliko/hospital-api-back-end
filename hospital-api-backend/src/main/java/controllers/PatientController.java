@@ -2,6 +2,7 @@ package controllers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import dtos.creations.PatientCreationDTO;
 import dtos.responses.PatientResponseDTO;
-import dtos.updates.responses.PatientUpdateFormDTO;
+import dtos.updates.forms.PatientUpdateFormDTO;
 import jakarta.validation.Valid;
 import services.PatientService;
 
@@ -26,31 +27,35 @@ public class PatientController {
 		this.patientService = patientService;
 	}
 	@PostMapping
+	@PreAuthorize("hasAnyRole('PATIENT','HOSPITAL_ADM')")
 	public ResponseEntity<PatientResponseDTO> createPatient(@RequestBody @Valid PatientCreationDTO patientDTO){
 		PatientResponseDTO patientResponse = patientService.createPatient(patientDTO);
 		return ResponseEntity.status(HttpStatus.CREATED).body(patientResponse);
 	}
 
 	@GetMapping("/{id}")
+	@PreAuthorize("hasAnyRole('PATIENT','HOSPITAL_ADM')")
 	public ResponseEntity<PatientResponseDTO> getPatient(@PathVariable("id") Long id){
 		var response = patientService.getPatient(id);
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 	
 	@GetMapping("/{id}/form")
+	@PreAuthorize("hasAnyRole('PATIENT','HOSPITAL_ADM')")
 	public ResponseEntity<PatientUpdateFormDTO> getPatientUpdateInformation(@PathVariable Long id){
 		var response = patientService.getUpdateFormFromPatient(id);
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 	
 	@PutMapping("/{id}")
+	@PreAuthorize("hasAnyRole('PATIENT','HOSPITAL_ADM')")
 	public ResponseEntity<PatientResponseDTO> updatePatient(@PathVariable("id") Long patientId, @RequestBody @Valid PatientCreationDTO patientDTO){
-		patientService.updatePatient(patientId, patientDTO);
-		PatientResponseDTO updateResponse = patientService.getPatient(patientId);
+		var updateResponse = patientService.updatePatient(patientId, patientDTO);
 		return ResponseEntity.ok(updateResponse);
 	}
 	
 	@DeleteMapping("/{id}")
+	@PreAuthorize("hasAnyRole('PATIENT','HOSPITAL_ADM')")
 	public ResponseEntity<Void> deletePatient(@PathVariable("id") Long patientId){
 		patientService.deletePatient(patientId);
 		return ResponseEntity.noContent().build();

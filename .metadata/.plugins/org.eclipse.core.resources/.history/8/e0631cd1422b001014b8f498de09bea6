@@ -1,0 +1,120 @@
+package services;
+
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Service;
+
+import annotations.audit.LogAudit;
+import dtos.creations.PatientCreationDTO;
+import dtos.responses.PatientResponseDTO;
+import dtos.updates.forms.PatientUpdateFormDTO;
+import exceptions.HospitalNotFoundException;
+import exceptions.PersonNotFoundException;
+import jakarta.transaction.Transactional;
+import model.entities.Address;
+import model.entities.Hospital;
+import model.entities.Patient;
+import repositories.HospitalRepository;
+import repositories.PatientRepository;
+import repositories.UserRepository;
+
+@Service
+public class PatientService {
+	private final PatientRepository patientRepository;
+	private final HospitalRepository hospitalRepository;
+	private final UserRepository userRepository;
+	public PatientService(PatientRepository patientRepository, HospitalRepository hospitalRepository, UserRepository userRepository) {
+			this.patientRepository = patientRepository;
+			this.hospitalRepository = hospitalRepository;
+			this.userRepository = userRepository;
+	}
+	
+	@Transactional
+	@LogAudit(action ="PATIENT_CREATED")
+	public PatientResponseDTO createPatient(PatientCreationDTO patientDTO) {
+		Patient patient = patientDTOToEntity(patientDTO);
+		patientRepository.save(patient);
+		String uid = SecurityContextHolder.getContext().getAuthentication().getName();
+		
+		return PatientResponseDTO.fromPatient(patient);
+	}
+	
+	private Patient patientDTOToEntity(PatientCreationDTO patientDTO) {
+		var personDTO = patientDTO.personDTO();
+		Hospital hospital = hospitalRepository.findById(personDTO.hospitalId())
+				.orElseThrow(()-> new HospitalNotFoundException("Hospital não encontrado!"));
+
+		Address address = Address.convertFromDTO(personDTO.addressDTO());
+		
+		var patient = new Patient(
+				personDTO.name(),
+				personDTO.lastName(),
+				personDTO.gender(),
+				personDTO.cpf(),
+				personDTO.birthDate(),
+				personDTO.telephoneNumber(),
+				personDTO.cellphoneNumber(),
+				personDTO.email(),
+				address,
+				personDTO.nationality(),
+				hospital,
+				patientDTO.profession(),
+				patientDTO.mothersName());
+	
+		return patient;
+	}
+	@Transactional
+	@LogAudit(action ="PATIENT_REQUESTED")
+	public PatientResponseDTO getPatient(Long id) {
+		var patient = patientRepository.findById(id)
+				.orElseThrow(()-> new PersonNotFoundException("Paciente com id " + id +" não encontrado!"));
+		return PatientResponseDTO.fromPatient(patient);
+	}
+	
+	@Transactional
+	public PatientUpdateFormDTO getUpdateFormFromPatient(Long id) {
+		var patient = patientRepository.findById(id)
+			.orElseThrow(()-> new PersonNotFoundException("Paciente com id " + id +" não encontrado!"));
+		
+		return PatientUpdateFormDTO.fromPatient(patient);
+	}
+	
+	
+	@Transactional
+	@LogAudit(action ="PATIENT_UPDATED")
+	public PatientResponseDTO updatePatient(Long id, PatientCreationDTO patientUpdate) {
+		var patient = patientRepository.findById(id)
+				.orElseThrow(()-> new PersonNotFoundException("Paciente não encontrado!"));
+		
+		var personDTO = patientUpdate.personDTO();
+		Hospital hospital = hospitalRepository.findById(personDTO.hospitalId())
+				.orElseThrow(()-> new HospitalNotFoundException("Hospital não encontrado!"));
+		
+		
+		Address address = Address.convertFromDTO(personDTO.addressDTO());
+		
+		patient.setName(personDTO.name());
+		patient.setLastName(personDTO.lastName());
+		patient.setGender(personDTO.gender());
+		patient.setBirthDate(personDTO.birthDate());
+		patient.setCellphoneNumber(personDTO.cellphoneNumber());
+		patient.setCpf(personDTO.cpf());
+		patient.setEmail(personDTO.email());
+		patient.setTelephoneNumber(personDTO.telephoneNumber());
+		patient.setNationality(personDTO.nationality());
+		patient.setProfession(patientUpdate.profession());
+		patient.setMothersName(patientUpdate.mothersName());
+		patient.setHospital(hospital);
+		patient.setAddress(address);
+		patientRepository.save(patient);
+		return PatientResponseDTO.fromPatient(patient);
+	}
+	
+	@Transactional
+	@LogAudit(action ="PATIENT_DELETED")
+	public void deletePatient(Long id) {
+		var patient = patientRepository.findById(id)
+				.orElseThrow(()-> new PersonNotFoundException("Paciente não encontrado!"));
+		patientRepository.delete(patient);
+	}
+
+}

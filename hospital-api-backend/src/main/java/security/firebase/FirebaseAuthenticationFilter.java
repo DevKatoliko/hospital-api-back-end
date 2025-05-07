@@ -1,7 +1,9 @@
 package security.firebase;
 
 import java.io.IOException;
+
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -31,12 +33,13 @@ public class FirebaseAuthenticationFilter extends OncePerRequestFilter{
 					FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(token);
 					
 					String uid = decodedToken.getUid();
-					
 					String roleFromToken = (String)decodedToken.getClaims().get("role");
 					
 					if(roleFromToken != null) {
+					
 						var authorities = List.of(new SimpleGrantedAuthority("ROLE_" + roleFromToken));
 						var auth = new UsernamePasswordAuthenticationToken(uid,null, authorities);
+						auth.setDetails(Map.of("email",decodedToken.getEmail()));
 						if(SecurityContextHolder.getContext().getAuthentication() == null) 
 							SecurityContextHolder.getContext().setAuthentication(auth);
 					}else {

@@ -1,0 +1,78 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.rubens.hospital</groupId>
+  <artifactId>hospital-api-backend</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+   <dependencies>
+        <dependency>
+	      <groupId>org.springframework.boot</groupId>
+	      <artifactId>spring-boot-starter-validation</artifactId>
+	      <version>3.4.3</version>
+	   </dependency>
+        <!-- Spring Boot Starter Web (para uma aplicação web RESTful) -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>3.4.3</version>
+        </dependency>
+		<!-- Spring Boot Starter para realizar persistência de dados -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+			<version>3.4.3</version>
+		</dependency>
+        <!-- Spring Boot Starter para usar o mecanismo de templates Thymeleaf -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+            <version>3.4.3</version>
+        </dependency>
+		 <!-- Spring Boot Starter para uso de mecanismos de segurança da aplicação -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+			<version>3.4.3</version>
+		</dependency>
+        <dependency>
+		    <groupId>mysql</groupId>
+		    <artifactId>mysql-connector-java</artifactId>
+		    <scope>runtime</scope>
+		    <version>8.0.33</version>
+		</dependency>
+		
+		<!-- Para utilizar o Firebase na autenticação de usuário-->
+		<dependency>
+		    <groupId>com.google.firebase</groupId>
+		    <artifactId>firebase-admin</artifactId>
+		    <version>9.1.1</version>
+		</dependency>
+    	
+    	<dependency>
+	    	<groupId>org.mockito</groupId>
+	    	<artifactId>mockito-core</artifactId>
+	    	<version>5.17.0</version>
+	    	<scope>test</scope>
+    	</dependency>
+    	
+    	<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-test</artifactId>
+		    <version>3.4.4</version>
+		    <scope>test</scope>
+		</dependency>
+		
+		<dependency>
+    <groupId>org.springframework.security</groupId>
+    <artifactId>spring-security-test</artifactId>
+    <scope>test</scope>
+</dependency>
+		
+		<dependency>
+		    <groupId>org.junit.jupiter</groupId>
+		    <artifactId>junit-jupiter</artifactId>
+		    <version>5.9.2</version>
+		    <scope>test</scope>
+		</dependency>
+    </dependencies>
+	
+</project>

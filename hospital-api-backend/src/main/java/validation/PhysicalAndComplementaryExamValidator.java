@@ -1,10 +1,10 @@
 package validation;
 
+import annotations.validation.PhysicalAndComplementaryExamValidation;
 import dtos.creations.MedicalRecordAndExamDataDTO;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import model.enums.ScheduleType;
-import validation.annotations.PhysicalAndComplementaryExamValidation;
 
 public class PhysicalAndComplementaryExamValidator implements ConstraintValidator<PhysicalAndComplementaryExamValidation,MedicalRecordAndExamDataDTO>{
 

@@ -4,5 +4,6 @@ public enum RoleType {
 	PATIENT,
 	DOCTOR,
 	NURSE,
-	ADM
+	HOSPITAL_ADM,
+	SYSTEM_ADM
 }

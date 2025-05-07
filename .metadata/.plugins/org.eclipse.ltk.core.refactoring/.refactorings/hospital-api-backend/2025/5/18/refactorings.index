@@ -8,3 +8,4 @@
 1746219130697	Rename compilation unit 'PatientUpdateResponse.java'
 1746281918395	Rename type 'PatientUpdateResponseDTO'
 1746281942701	Rename type 'PersonUpdateResponseDTO'
+1746297454117	Rename package 'dtos.updates.responses'

@@ -1,9 +1,9 @@
 package validation;
 
+import annotations.validation.MedicationUserValidation;
 import dtos.creations.MedicalHistoryCreationDTO;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-import validation.annotations.MedicationUserValidation;
 
 public class MedicationUserValidator implements ConstraintValidator<MedicationUserValidation,MedicalHistoryCreationDTO >{
 

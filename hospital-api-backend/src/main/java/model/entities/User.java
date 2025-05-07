@@ -79,6 +79,10 @@ public class User implements Serializable {
 	        this.person = Objects.requireNonNull(person, "A pessoa associada não pode ser nula!");
 	    }
 
+	public String getUid() {
+		return uid;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);

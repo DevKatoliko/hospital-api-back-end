@@ -1,0 +1,5 @@
+package annotations.audit;
+
+public @interface LogAudit {
+
+}
